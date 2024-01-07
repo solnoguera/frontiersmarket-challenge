@@ -37,8 +37,8 @@ const SellingSection = () => {
                 </div>
                 <div className="flex flex-1 justify-center md:justify-end">
                   <picture>
-                    <source srcSet="assets/d-selling-1.webp" type="image/webp" />
-                    <img src="/d-selling-1.webp" width="360px" decoding="async" loading="lazy" alt="Free to list" />
+                    <source srcSet={`${buying ? "assets/d-buying-1.webp" : "assets/d-selling-1.webp"}`} type="image/webp" />
+                    <img src={`${buying ? "assets/d-buying-1.webp" : "assets/d-selling-1.webp"}`} width="360px" decoding="async" loading="lazy" alt="Free to list" />
                   </picture>
                 </div>
               </article>
@@ -58,8 +58,8 @@ const SellingSection = () => {
                 </div>
                 <div className="flex flex-1 justify-center md:justify-end">
                   <picture>
-                    <source srcSet="assets/d-selling-2.webp" type="image/webp" />
-                    <img src="/d-selling-2.webp" width="362px" decoding="async" loading="lazy" alt="Get more details" />
+                    <source srcSet={`${buying ? "assets/d-buying-2.webp" : "assets/d-selling-2.webp"}`} type="image/webp" />
+                    <img src={`${buying ? "assets/d-buying-2.webp" : "assets/d-selling-2.webp"}`} width="362px" decoding="async" loading="lazy" alt="Get more details" />
                   </picture>
                 </div>
               </article>
@@ -79,8 +79,8 @@ const SellingSection = () => {
                 </div>
                 <div className="flex flex-1 justify-center md:justify-end">
                   <picture>
-                    <source srcSet="assets/d-selling-3.webp" type="image/webp" />
-                    <img src="/d-selling-3.webp" width="374px" decoding="async" loading="lazy" alt="Instant messaging" />
+                    <source srcSet={`${buying ? "assets/d-buying-3.webp" : "assets/d-selling-3.webp"}`} type="image/webp" />
+                    <img src={`${buying ? "assets/d-buying-3.webp" : "assets/d-selling-3.webp"}`} width="374px" decoding="async" loading="lazy" alt="Instant messaging" />
                   </picture>
                 </div>
               </article>
