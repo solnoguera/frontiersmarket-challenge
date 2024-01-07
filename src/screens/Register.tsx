@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import VerifiedIcon from '../icon/VerifiedIcon'
 import FacebookIcon from '../icon/FacebookIcon'
 import GoogleIcon from '../icon/GoogleIcon'
@@ -6,23 +6,71 @@ import EyeIcon from '../icon/EyeIcon'
 import ArrowIcon from '../icon/ArrowIcon'
 import { Link } from 'react-router-dom'
 import CrossIcon from '../icon/CrossIcon'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import useFirebase from '../hooks/useFirebase'
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { regexEmail, regexPassword } from '../utils'
+
+interface ErrorState{
+  name?: string;
+  email?: string;
+  password?: string;
+}
 
 const Register = () => {
-  return (
+    const [name, setName] = useState<string>();
+    const [email, setEmail] = useState<string>();
+    const [password, setPassword] = useState<string>();
+    const [errorMsg, setErrorMsg] = useState<ErrorState>({ name: "", email: "", password: ""});
+    const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
+    const { auth, loginWithGoogle } = useFirebase();
+    const navigate = useNavigate();
+
+    const handleRegister = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      try {
+        e.preventDefault();
+        if(auth && email && password && name){
+          console.log("regexEmail.test(email)",regexEmail.test(email))
+
+          if (!regexEmail.test(email)) {
+            setErrorMsg((prevState)=>{ return {...prevState, email: "Provide a valid email"} });
+            return;
+          }else{
+            setErrorMsg((prevState)=>{ return {...prevState, email: ""} });
+          }
+          if (!regexPassword.test(password)) {
+            setErrorMsg((prevState)=>{ return {...prevState, password: "Provide a valid password"} });
+            return;
+          }else{
+            setErrorMsg((prevState)=>{ return {...prevState, password: ""} });
+          }
+          localStorage.setItem("name", name);
+          await createUserWithEmailAndPassword(auth, email, password);
+          navigate("/");
+          toast.success(`Welcome ${localStorage.getItem("name")}!`);
+      }
+      } catch (error: any) {
+          toast.error(`${error?.name}: ${error?.code}`)
+      }
+    }
+
+    return (
     <main className="flex flex-col bg-[#FBFAFA] md:flex-row min-h-screen">
       <section className="flex flex-1 justify-center">
         <div className="container pt-4 flex flex-col lg:max-w-[400px] gap-6">
           <div className="flex flex-col justify-center basis-full gap-6">
-            <a className="w-fit" href="/">
-              <img
-                src="assets/logo.svg"
-                alt="logo 1"
-                width="105"
-                height="56"
-                // style="aspect-ratio: 1.875 / 1;"
-                style={{ aspectRatio: '1.875 / 1' }}
-              />
-            </a>
+            <Link to="/">
+              <a className="w-fit" >
+                <img
+                  src="assets/logo.svg"
+                  alt="logo 1"
+                  width="105"
+                  height="56"
+                  style={{ aspectRatio: '1.875 / 1' }}
+                />
+              </a>
+            </Link>
             <section className="flex flex-col justify-center gap-10 max-md:py-4">
               <div>
                 <h1 className="font-archia font-semibold text-2xl lg:text-3xl leading-11 text-primary">
@@ -31,10 +79,7 @@ const Register = () => {
                 <h2 className="flex items-center gap-1 font-medium text-base text-[#475467]">
                   Already a user?
                   <Link to="/login">
-                    <a
-                      className="flex items-center gap-1 font-semibold text-base text-[#1D2939]"
-                      href="/login"
-                    >
+                    <a className="flex items-center gap-1 font-semibold text-base text-[#1D2939]" >
                       Log in here
                       <ArrowIcon />
                     </a>
@@ -47,44 +92,50 @@ const Register = () => {
                     <div className="flex flex-col gap-1 relative">
                       <input
                         name="name"
-                        // required=""
+                        required
                         placeholder="Name"
                         type="text"
                         className="gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white"
-                        value=""
+                        value={name}
+                        onChange={(e)=>setName(e.target.value)}
                       />
                     </div>
                     <div></div>
                     <div className="flex flex-col gap-1 relative">
                       <input
                         name="email"
-                        // required=""
+                        required
                         placeholder="Email"
                         type="email"
-                        className="gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white"
-                        value=""
-                      />
+                        className={`gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white ${errorMsg?.email ? "border-redFM" : ""}`}
+                        value={email}
+                        onChange={(e)=>setEmail(e.target.value)}
+                        />
                     </div>
+                    {errorMsg?.email && <p className="text-redFM text-xs">{errorMsg?.email}</p>}
                     <div></div>
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-center relative items-center">
                         <input
-                          className="gap-1 border rounded-lg bg-white text-sm text-[#475467] p-3 lg:p-4 flex-grow border-lightGrey"
+                          className={`gap-1 border rounded-lg bg-white text-sm text-[#475467] p-3 lg:p-4 flex-grow border-lightGrey  ${errorMsg?.password ? "border-redFM" : ""}`}
                           name="password"
-                          //   required=""
+                          required
                           //   control="[object Object]"
                           placeholder="Password"
-                          type="password"
-                          value=""
+                          type={`${passwordVisibility ? "password" : "text"}`}
+                          value={password}
+                          onChange={(e)=>setPassword(e.target.value)}
                         />
                         <button
                           type="button"
                           className="absolute right-5"
                           aria-label="toggle password visibility"
+                          onClick={()=>setPasswordVisibility(!passwordVisibility)}
                         >
                           <EyeIcon />
                         </button>
                       </div>
+                      {errorMsg?.password && <p className="text-redFM text-xs">{errorMsg?.password}</p>}
                     </div>
                   </fieldset>
                   <div className="px-4 pb-6 pt-2 text-xs">
@@ -106,8 +157,8 @@ const Register = () => {
                   <div className="flex flex-col gap-3">
                     <button
                       data-cy="btn-login"
-                      type="submit"
                       className="flex gap-3 items-center justify-center font-bold text-lg text-white bg-secondary p-3 lg:p-4 rounded-lg leading-normal disabled:opacity-25 bg-greenFM"
+                      onClick={(e)=>handleRegister(e)}
                     >
                       Register
                     </button>
@@ -120,6 +171,7 @@ const Register = () => {
                       <button
                         type="button"
                         className="flex items-center justify-center w-full gap-3 p-3 lg:p-4 font-semibold lg:text-lg text-[#1D2939] rounded-lg bg-white border border-lightGrey"
+                        onClick={loginWithGoogle}
                       >
                         <GoogleIcon />
                         Continue with Google
@@ -134,7 +186,7 @@ const Register = () => {
                     </div>
                     <p className="font-medium text-sm text-center text-[#202427] pt-4">
                       By selecting Register, I agree to
-                      <a href="/terms-of-service"> Terms of Service.</a>
+                      <a> Terms of Service.</a>
                     </p>
                   </div>
                 </form>
@@ -143,8 +195,8 @@ const Register = () => {
           </div>
           <section className="flex flex-col gap-4 font-medium text-beigeGrey border-t border-lightGrey py-8">
             <div className="flex flex-row gap-4 text-sm">
-              <a href="/terms-of-service">Terms of Service</a>
-              <a href="/privacy-policy">Privacy Policy</a>
+              <a>Terms of Service</a>
+              <a>Privacy Policy</a>
             </div>
             <p className="text-xs md:text-sm">
               Copyright © Frontiers Market 2023. All Rights Reserved.

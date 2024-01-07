@@ -1,12 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ArrowIcon from '../icon/ArrowIcon'
 import VerifiedIcon from '../icon/VerifiedIcon'
 import GoogleIcon from '../icon/GoogleIcon'
 import FacebookIcon from '../icon/FacebookIcon'
 import EyeIcon from '../icon/EyeIcon'
 import { Link } from 'react-router-dom'
+import useFirebase from '../hooks/useFirebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 const Login = () => {
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [errorMsg, setErrorMsg] = useState<object>({ name: "", email: "", password: ""});
+  const { app, auth, loginWithGoogle } = useFirebase();
+
+  const handleLogin = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    try {
+        e.preventDefault();
+        if(auth && email && password){
+        const regexEmail = /^(?=.*[0-9!@#$%^&*])/;
+        const regexPassword = /^(?=.*[0-9!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
+        if (!regexPassword.test(password)) {
+          setErrorMsg((prevState)=>{ return {...prevState, password: ""} });
+          return;
+        }
+        if (!regexEmail.test(email)) {
+          setErrorMsg((prevState)=>{ return {...prevState, password: ""} });
+          return;
+        }
+        //TODO save
+        const user = await signInWithEmailAndPassword(auth, email, password);
+        console.log(user.user)
+      }
+    } catch (error) {
+      console.log({error})
+    }
+  }
   return (
     <main className="flex flex-col bg-[#FBFAFA] md:flex-row min-h-screen">
       <section className="flex flex-1 justify-center">

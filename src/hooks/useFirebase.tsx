@@ -3,15 +3,17 @@ import { FirebaseApp, initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import {
   getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
   onAuthStateChanged,
   Auth,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth'
+import { toast } from 'react-toastify'
 
 const useFirebase = () => {
   const [app, setApp] = useState<FirebaseApp>()
   const [auth, setAuth] = useState<Auth | undefined>()
+
   useEffect(() => {
     const firebaseConfig = {
       apiKey: 'AIzaSyDkZVTFbvbFYV-CBjdLNlv6JoKqBYiHS8o',
@@ -40,14 +42,38 @@ const useFirebase = () => {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid
-        alert(`New user signed in ${uid}`)
-        console.log(user)
+        console.log("onAuthStateChanged: ",user)
         // ...
       } else {
         // User is signed out
+        localStorage.setItem("name", "");
       }
     })
   }, [])
+
+  const loginWithGoogle = () => {
+    if(app){
+      const provider = new GoogleAuthProvider()
+      provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
+      const auth = getAuth(app)
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result)
+          console.log('loginWithGoogle')
+          console.log('credential', credential)
+          const token = credential?.accessToken
+          // The signed-in user info.
+          const user = result.user
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+          console.log('user', user)
+        })
+        .catch((error) => {
+          toast.error(`${error?.code}: ${error?.message}`)
+        })
+      }
+  }
 
   // return { formData, handleChange, resetForm };
   /**
@@ -64,9 +90,9 @@ const useFirebase = () => {
   //currentUser.providerData
   return {
     app,
+    auth,
     user: auth?.currentUser,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
+    loginWithGoogle
   }
 }
 

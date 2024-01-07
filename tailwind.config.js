@@ -12,6 +12,7 @@ module.exports = {
         borderGreen: '#008627',
         beigeGrey: '#667085',
         tertiary: '#EDE8E4',
+        redFM: '#F0384E',
       },
     },
   },
