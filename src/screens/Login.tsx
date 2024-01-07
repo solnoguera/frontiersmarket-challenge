@@ -4,36 +4,51 @@ import VerifiedIcon from '../icon/VerifiedIcon'
 import GoogleIcon from '../icon/GoogleIcon'
 import FacebookIcon from '../icon/FacebookIcon'
 import EyeIcon from '../icon/EyeIcon'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useFirebase from '../hooks/useFirebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import { regexEmail, regexPassword } from '../utils'
+import { toast } from 'react-toastify'
+
+interface ErrorState{
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
 
 const Login = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const [errorMsg, setErrorMsg] = useState<object>({ name: "", email: "", password: ""});
+  const [errorMsg, setErrorMsg] = useState<ErrorState>({ name: "", email: "", password: ""});
   const { app, auth, loginWithGoogle } = useFirebase();
+  const navigate = useNavigate();
+  const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
 
   const handleLogin = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     try {
         e.preventDefault();
         if(auth && email && password){
-        const regexEmail = /^(?=.*[0-9!@#$%^&*])/;
-        const regexPassword = /^(?=.*[0-9!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
-        if (!regexPassword.test(password)) {
-          setErrorMsg((prevState)=>{ return {...prevState, password: ""} });
-          return;
-        }
-        if (!regexEmail.test(email)) {
-          setErrorMsg((prevState)=>{ return {...prevState, password: ""} });
-          return;
-        }
-        //TODO save
-        const user = await signInWithEmailAndPassword(auth, email, password);
-        console.log(user.user)
+          if (!regexEmail.test(email)) {
+            setErrorMsg((prevState)=>{ return {...prevState, email: "Provide a valid email"} });
+            return;
+          }else{
+            setErrorMsg((prevState)=>{ return {...prevState, email: ""} });
+          }
+          if (!regexPassword.test(password)) {
+            setErrorMsg((prevState)=>{ return {...prevState, password: "Provide a valid password"} });
+            return;
+          }else{
+            setErrorMsg((prevState)=>{ return {...prevState, password: ""} });
+          }
+          const user = await signInWithEmailAndPassword(auth, email, password);
+          navigate("/");
+          console.log("userlogin",user)
+          toast.success("Logged in successfuly!");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log({error})
+      toast.error(`${error?.name}: ${error?.code}`)
     }
   }
   return (
@@ -41,15 +56,17 @@ const Login = () => {
       <section className="flex flex-1 justify-center">
         <div className="container pt-4 flex flex-col lg:max-w-[400px] gap-6">
           <div className="flex flex-col justify-center basis-full gap-6">
-            <a className="w-fit" href="/">
-              <img
-                src="assets/logo.svg"
-                alt="logo 1"
-                width="105"
-                height="56"
-                style={{ aspectRatio: '1.875 / 1' }}
-              />
-            </a>
+            <Link to="/">
+              <a className="w-fit">
+                <img
+                  src="assets/logo.svg"
+                  alt="logo 1"
+                  width="105"
+                  height="56"
+                  style={{ aspectRatio: '1.875 / 1' }}
+                />
+              </a>
+            </Link>
             <section className="flex flex-col justify-center gap-10 max-md:py-4">
               <div>
                 <h1 className="font-archia font-semibold text-2xl lg:text-3xl leading-11 text-primary">
@@ -71,31 +88,34 @@ const Login = () => {
                     <div className="flex flex-col gap-1 relative">
                       <input
                         name="email"
-                        //   required=""
+                        required
                         placeholder="Email"
                         type="email"
                         data-cy="input-email"
                         className="gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white"
-                        value=""
+                        value={email}
+                        onChange={(e)=>setEmail(e.target.value)}
                       />
                     </div>
+                    {errorMsg?.email && <p className="text-redFM text-xs">{errorMsg?.email}</p>}
                     <div></div>
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-center relative items-center">
                         <input
                           className="gap-1 border rounded-lg bg-white text-sm text-[#475467] p-3 lg:p-4 flex-grow border-lightGrey"
                           name="password"
-                          // required=""
-                          // control="[object Object]"
+                          required
                           placeholder="Password"
                           data-cy="input-password"
-                          type="password"
-                          value=""
+                          type={`${passwordVisibility ? "password" : "text"}`}
+                          value={password}
+                          onChange={(e)=>setPassword(e.target.value)}
                         />
                         <button
                           type="button"
                           className="absolute right-5"
                           aria-label="toggle password visibility"
+                          onClick={()=>setPasswordVisibility(!passwordVisibility)}
                         >
                           <EyeIcon />
                         </button>
@@ -105,7 +125,6 @@ const Login = () => {
                       data-cy="link-forgot"
                       className="lg:self-end font-semibold text-sm md:text-base text-[#1D2939]"
                       aria-label="Forgot password"
-                      href="/forgot-password"
                     >
                       Forgot password?
                     </a>
@@ -115,6 +134,7 @@ const Login = () => {
                       data-cy="btn-login"
                       type="submit"
                       className="flex gap-3 items-center justify-center font-bold text-lg text-white bg-secondary p-3 lg:p-4 rounded-lg leading-normal disabled:opacity-25 bg-greenFM"
+                      onClick={(e)=>handleLogin(e)}
                     >
                       Log in
                     </button>
@@ -127,6 +147,7 @@ const Login = () => {
                       <button
                         type="button"
                         className="flex items-center justify-center w-full gap-3 p-3 lg:p-4 font-semibold lg:text-lg text-[#1D2939] rounded-lg bg-white border border-lightGrey"
+                        onClick={loginWithGoogle}
                       >
                         <GoogleIcon />
                         Continue with Google
@@ -146,8 +167,8 @@ const Login = () => {
           </div>
           <section className="flex flex-col gap-4 font-medium text-beigeGrey border-t border-lightGrey py-8">
             <div className="flex flex-row gap-4 text-sm">
-              <a href="/terms-of-service">Terms of Service</a>
-              <a href="/privacy-policy">Privacy Policy</a>
+              <a>Terms of Service</a>
+              <a>Privacy Policy</a>
             </div>
             <p className="text-xs md:text-sm">
               Copyright © Frontiers Market 2023. All Rights Reserved.

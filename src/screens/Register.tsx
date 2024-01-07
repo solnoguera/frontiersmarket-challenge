@@ -31,8 +31,6 @@ const Register = () => {
       try {
         e.preventDefault();
         if(auth && email && password && name){
-          console.log("regexEmail.test(email)",regexEmail.test(email))
-
           if (!regexEmail.test(email)) {
             setErrorMsg((prevState)=>{ return {...prevState, email: "Provide a valid email"} });
             return;
@@ -120,7 +118,6 @@ const Register = () => {
                           className={`gap-1 border rounded-lg bg-white text-sm text-[#475467] p-3 lg:p-4 flex-grow border-lightGrey  ${errorMsg?.password ? "border-redFM" : ""}`}
                           name="password"
                           required
-                          //   control="[object Object]"
                           placeholder="Password"
                           type={`${passwordVisibility ? "password" : "text"}`}
                           value={password}

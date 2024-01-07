@@ -9,10 +9,12 @@ import {
   signInWithPopup,
 } from 'firebase/auth'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const useFirebase = () => {
   const [app, setApp] = useState<FirebaseApp>()
   const [auth, setAuth] = useState<Auth | undefined>()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const firebaseConfig = {
@@ -68,6 +70,9 @@ const useFirebase = () => {
           // IdP data available using getAdditionalUserInfo(result)
           // ...
           console.log('user', user)
+          toast.success(`Welcome ${user?.displayName ?? user?.email}!`);
+          localStorage.setItem("name", user?.displayName ?? "");
+          navigate("/");
         })
         .catch((error) => {
           toast.error(`${error?.code}: ${error?.message}`)
