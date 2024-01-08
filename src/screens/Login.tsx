@@ -7,7 +7,11 @@ import EyeIcon from '../icon/EyeIcon'
 import { Link, useNavigate } from 'react-router-dom'
 import useFirebase from '../hooks/useFirebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { regexEmail, regexPassword, transformEmailIntoUsername } from '../utils/constants'
+import {
+  regexEmail,
+  regexPassword,
+  transformEmailIntoUsername,
+} from '../utils/constants'
 import { toast } from 'react-toastify'
 import useRealTimeDB from '../hooks/useRealTimeDB'
 
@@ -58,12 +62,12 @@ const Login = () => {
         const user = await signInWithEmailAndPassword(auth, email, password)
         navigate('/')
         console.log('userlogin', user)
-        const userName: string =  transformEmailIntoUsername(email);
-        localStorage.setItem("uid", user.user.uid)
+        const userName: string = transformEmailIntoUsername(email)
+        localStorage.setItem('uid', user.user.uid)
         localStorage.setItem('username', userName)
         toast.success('Logged in successfuly!')
-        console.log({userName})
-        onLogin(userName);
+        console.log({ userName })
+        onLogin(userName)
       }
     } catch (error: any) {
       console.log({ error })
@@ -175,7 +179,6 @@ const Login = () => {
                         <GoogleIcon />
                         Continue with Google
                       </button>
-                      
                     </div>
                   </div>
                 </form>

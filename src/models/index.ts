@@ -1,21 +1,18 @@
 export interface User {
-    username: string;
-    avatar: string;
-    chatroomId?: number | undefined;
-    friends?: [] | undefined;
+  username: string
+  avatar: string
+  chatroomId?: number | undefined
+  friends?: [] | undefined
 }
 
 export interface Messages {
-    sender: string;
-    _id: string;
-    user: {
-      avatar: string;
-      name: string;
-      _id: string
-    },
-    text: string;
+  text: string
+  sender: string
+  createdAt: Date
 }
 
 export interface Chatroom {
-   messages: Messages[];
+  messages: Messages[]
+  firstUser: string
+  secondUser: string
 }

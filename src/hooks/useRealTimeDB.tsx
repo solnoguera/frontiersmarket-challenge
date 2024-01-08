@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import useFirebase from './useFirebase'
-import { Database, getDatabase, ref, push, update, get } from 'firebase/database'
+import {
+  Database,
+  getDatabase,
+  ref,
+  push,
+  update,
+  get,
+} from 'firebase/database'
 import { User } from '../models'
 import { toast } from 'react-toastify'
 import { transformEmailIntoUsername } from '../utils/constants'
@@ -8,36 +15,36 @@ import { transformEmailIntoUsername } from '../utils/constants'
 const useRealTimeDB = () => {
   const [db, setDb] = useState<Database | undefined>()
   const { app, getUser } = useFirebase()
-  
+
   const findUser = async (username: string) => {
-    const database = getDatabase();
+    const database = getDatabase()
 
-    const mySnapshot = await get(ref(database, `users/${username}`));
+    const mySnapshot = await get(ref(database, `users/${username}`))
 
-    return mySnapshot.val();
-  };
-
+    return mySnapshot.val()
+  }
 
   const onAddFriend = async (email: string) => {
     try {
-      console.log("onAddFriend")
+      console.log('onAddFriend')
       //find user and add it to my friends and also add me to his friends
-      const database = getDatabase();
-      const userData = await getUser();
-      const user = await findUser(transformEmailIntoUsername(email));
-      console.log("user",user)
-      console.log("userData",userData)
-      if(!userData) return toast.error("Please log in.");
-      if(!user) return toast.error("No user found!");
+      const database = getDatabase()
+      const userData = await getUser()
+      const user = await findUser(transformEmailIntoUsername(email))
+      console.log('user', user)
+      console.log('userData', userData)
+      if (!userData) return toast.error('Please log in.')
+      if (!user) return toast.error('No user found!')
       if (user.username === userData?.username) {
-        return toast.error("You cant add yourself!");
+        return toast.error('You cant add yourself!')
       }
 
       if (
         userData?.friends &&
-        userData?.friends.findIndex((f : User) => f.username === user.username) > 0
+        userData?.friends.findIndex((f: User) => f.username === user.username) >
+          0
       ) {
-        return toast.error("Friend already added!");
+        return toast.error('Friend already added!')
       }
 
       // create a chatroom and store the chatroom id
@@ -45,11 +52,11 @@ const useRealTimeDB = () => {
         firstUser: userData?.username,
         secondUser: user.username,
         messages: [],
-      });
+      })
 
-      const newChatroomId = newChatroomRef.key;
+      const newChatroomId = newChatroomRef.key
 
-      const userFriends = user.friends || [];
+      const userFriends = user.friends || []
       //join myself to this user friend list
       update(ref(database, `users/${user.username}`), {
         friends: [
@@ -60,9 +67,9 @@ const useRealTimeDB = () => {
             chatroomId: newChatroomId,
           },
         ],
-      });
+      })
 
-      const myFriends = userData?.friends || [];
+      const myFriends = userData?.friends || []
       //add this user to my friend list
       update(ref(database, `users/${userData?.username}`), {
         friends: [
@@ -73,13 +80,11 @@ const useRealTimeDB = () => {
             chatroomId: newChatroomId,
           },
         ],
-      });
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
-
-
+  }
 
   // function sendMessage(user, message) {
   //     if(db){

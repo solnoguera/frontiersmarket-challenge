@@ -10,7 +10,11 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import useFirebase from '../hooks/useFirebase'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { regexEmail, regexPassword, transformEmailIntoUsername } from '../utils/constants'
+import {
+  regexEmail,
+  regexPassword,
+  transformEmailIntoUsername,
+} from '../utils/constants'
 
 interface ErrorState {
   name?: string
@@ -57,20 +61,23 @@ const Register = () => {
             return { ...prevState, password: '' }
           })
         }
-        const userName: string = transformEmailIntoUsername(email);
-        console.log({userName})
-        const usernameTaken = await onRegister(userName);
-        if(usernameTaken){
-          toast.error("Username already taken.");
-        }else{
+        const userName: string = transformEmailIntoUsername(email)
+        console.log({ userName })
+        const usernameTaken = await onRegister(userName)
+        if (usernameTaken) {
+          toast.error('Username already taken.')
+        } else {
           localStorage.setItem('username', userName)
-          const user = await createUserWithEmailAndPassword(auth, email, password)
+          const user = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password,
+          )
           navigate('/')
-          console.log("user register", user)
-          localStorage.setItem("uid", user.user.uid)
+          console.log('user register', user)
+          localStorage.setItem('uid', user.user.uid)
           toast.success(`Welcome ${localStorage.getItem('name')}!`)
         }
-
       }
     } catch (error: any) {
       toast.error(`${error?.name}: ${error?.code}`)
