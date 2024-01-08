@@ -74,12 +74,12 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
   }
 
   return (
-    <div className="max-h-96">
-      <div className="h-12 flex items-center font-bold pl-2 gap-2">
+    <div className="max-h-96 rounded-lg">
+      <div className="h-12 flex items-center font-bold pl-2 gap-2 bg-gray-100 rounded-t-lg">
         <div onClick={onBack}>
           <BackIcon />
         </div>
-        <p className="text-xl m-0">
+        <p className="text-md m-0 ">
           {transformUsernameIntoEmail(selectedUser.username)}
         </p>
       </div>
