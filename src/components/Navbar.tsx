@@ -34,7 +34,7 @@ const Navbar = () => {
         </button>
         <div className="flex flex-1 flex-row items-center justify-end gap-3">
           <div className="hidden md:flex">
-            <p className="bg-white border-[#E4E7EC] border-[1px] rounded-md py-2 px-3 font-medium text-sm sm:text-base text-[#1D2939]">
+            <p className="bg-white border-[#E4E7EC] border-[1px] rounded-md py-2 px-3 font-medium text-sm sm:text-base text-[#1D2939] hover:cursor-pointer">
               Browse livestock
             </p>
           </div>
