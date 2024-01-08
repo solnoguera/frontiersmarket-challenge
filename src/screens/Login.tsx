@@ -24,7 +24,7 @@ const Login = () => {
     email: '',
     password: '',
   })
-  const { app, auth, loginWithGoogle, loginWithFacebook } = useFirebase()
+  const { app, auth, loginWithGoogle } = useFirebase()
   const navigate = useNavigate()
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
 
@@ -169,14 +169,7 @@ const Login = () => {
                         <GoogleIcon />
                         Continue with Google
                       </button>
-                      <button
-                        type="button"
-                        className="flex items-center justify-center w-full gap-3 p-3 lg:p-4 font-semibold lg:text-lg text-[#1D2939] rounded-lg bg-white border border-lightGrey"
-                        onClick={loginWithFacebook}
-                      >
-                        <FacebookIcon />
-                        Continue with Facebook
-                      </button>
+                      
                     </div>
                   </div>
                 </form>

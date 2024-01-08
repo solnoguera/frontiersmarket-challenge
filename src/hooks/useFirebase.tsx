@@ -49,6 +49,7 @@ const useFirebase = () => {
       } else {
         // User is signed out
         localStorage.setItem('name', '')
+        localStorage.setItem('uid', '')
       }
     })
   }, [])
@@ -73,31 +74,7 @@ const useFirebase = () => {
           console.log('user', user)
           toast.success(`Welcome ${user?.displayName ?? user?.email}!`)
           localStorage.setItem('name', user?.displayName ?? '')
-          navigate('/')
-        })
-        .catch((error) => {
-          toast.error(`${error?.code}: ${error?.message}`)
-        })
-    }
-  }
-
-  const loginWithFacebook = () => {
-    if (app) {
-      const provider = new FacebookAuthProvider()
-      const auth = getAuth(app)
-      auth.useDeviceLanguage()
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          // Google Access Token to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result)
-          console.log('loginWithFacebook')
-          console.log('credential', credential)
-          const token = credential?.accessToken
-          // The signed-in user info.
-          const user = result.user
-          console.log('user', user)
-          toast.success(`Welcome ${user?.displayName ?? user?.email}!`)
-          localStorage.setItem('name', user?.displayName ?? '')
+          localStorage.setItem('uid', user.uid ?? '')
           navigate('/')
         })
         .catch((error) => {
@@ -124,7 +101,6 @@ const useFirebase = () => {
     auth,
     user: auth?.currentUser,
     loginWithGoogle,
-    loginWithFacebook,
   }
 }
 

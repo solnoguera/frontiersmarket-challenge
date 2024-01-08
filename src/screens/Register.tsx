@@ -28,7 +28,7 @@ const Register = () => {
     password: '',
   })
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
-  const { auth, loginWithGoogle, loginWithFacebook } = useFirebase()
+  const { auth, loginWithGoogle } = useFirebase()
   const navigate = useNavigate()
 
   const handleRegister = async (
@@ -198,14 +198,6 @@ const Register = () => {
                       >
                         <GoogleIcon />
                         Continue with Google
-                      </button>
-                      <button
-                        type="button"
-                        className="flex items-center justify-center w-full gap-3 p-3 lg:p-4 font-semibold lg:text-lg text-[#1D2939] rounded-lg bg-white border border-lightGrey"
-                        onClick={loginWithFacebook}
-                      >
-                        <FacebookIcon />
-                        Continue with Facebook
                       </button>
                     </div>
                     <p className="font-medium text-sm text-center text-[#202427] pt-4">
