@@ -29,7 +29,7 @@ const Login = () => {
   })
   const { auth, loginWithGoogle } = useFirebase()
   const navigate = useNavigate()
-  const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
+  const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true)
 
   const handleLogin = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
