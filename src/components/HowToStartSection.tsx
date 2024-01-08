@@ -42,7 +42,7 @@ const HowToStartSection = () => {
         </div>
         <Link to="/register">
           <p
-            className="z-10 text-white text-base text-center md:text-lg font-bold rounded-lg py-3 px-4 max-sm:w-full md:px-18 bg-secondary bg-greenFM mt-16"
+            className="z-10 text-white text-base text-center md:text-lg font-bold rounded-lg py-3 px-4 max-sm:w-full md:px-18 bg-secondary bg-greenFM mt-32"
             aria-disabled="false"
           >
             Create Account

@@ -38,7 +38,6 @@ const Landing = () => {
             <Footer />
           </div>
         </div>
-        {/* <Main /> */}
         <ChatApp />
       </div>
     </div>

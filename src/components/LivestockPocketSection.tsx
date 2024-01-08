@@ -1,5 +1,6 @@
 import React from 'react'
 import AppleIcon from '../icon/Apple'
+import ArrowRightIcon from '../icon/ArrowRightIcon'
 
 const LivestockPocketSection = () => {
   return (
@@ -18,20 +19,7 @@ const LivestockPocketSection = () => {
               className="bg-blueFM flex items-center justify-center gap-2 mt-5 md:self-start font-bold text-base md:text-lg leading-7 bg-primary text-white rounded-lg px-4 py-3 md:px-9 md:py-4"
             >
               Get Early Access
-              <svg
-                stroke="currentColor"
-                fill="none"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                height="24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
+              <ArrowRightIcon />
             </p>
           </div>
           <div className="md:hidden flex self-center items-center gap-1 p-1 rounded-lg">
