@@ -1,5 +1,5 @@
 import { get, getDatabase, off, onValue, ref, update } from 'firebase/database'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { Chatroom, Messages, User } from '../models'
 import { transformUsernameIntoEmail } from '../utils/constants'
 import ChatMessage from './ChatMessage'
@@ -13,7 +13,7 @@ interface Props {
 const MyChat = ({ onBack, selectedUser }: Props) => {
   const [message, setMessage] = useState<string>()
   const [allMessages, setAllMessages] = useState<Messages[] | undefined>()
-  const messagesContainerRef = useRef(null)
+  const messagesContainerRef : RefObject<HTMLDivElement> = useRef(null)
 
   useEffect(() => {
     //load old messages
@@ -39,13 +39,11 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
   }, [selectedUser])
 
   const scrollToBottom = () => {
-    //@ts-expect-error
     if (
       messagesContainerRef?.current &&
       messagesContainerRef?.current?.scrollTop &&
       messagesContainerRef?.current?.scrollHeight
     ) {
-      //@ts-expect-error
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight
     }
