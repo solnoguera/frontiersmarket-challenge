@@ -17,11 +17,11 @@ const BannerSection = () => {
         <h1 className="text-3xl md:text-[56px] md:leading-[4rem] text-primary text-center font-archia font-semibold p-5 pb-10">
           Search Livestock For Sale
         </h1>
-        <a
-          className="bg-secondary text-white text-base md:text-lg font-bold rounded-lg py-4 px-11"
+        <p
+          className="bg-greenFM text-white text-base md:text-lg font-bold rounded-lg py-4 px-11"
         >
           Browse livestock
-        </a>
+        </p>
       </div>
     </section>
   )

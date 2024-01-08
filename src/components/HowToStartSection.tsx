@@ -41,12 +41,12 @@ const HowToStartSection = () => {
           ))}
         </div>
         <Link to="/register">
-          <a
+          <p
             className="z-10 text-white text-base text-center md:text-lg font-bold rounded-lg py-3 px-4 max-sm:w-full md:px-18 bg-secondary bg-greenFM mt-16"
             aria-disabled="false"
           >
             Create Account
-          </a>
+          </p>
         </Link>
         <picture className="z-0 absolute">
           <source srcSet="assets/us_country.webp" type="image/webp" />

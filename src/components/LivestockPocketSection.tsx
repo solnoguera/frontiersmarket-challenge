@@ -14,7 +14,7 @@ const LivestockPocketSection = () => {
               Weigh your livestock <br />
               with our free app
             </h2>
-            <a
+            <p
               className="bg-blueFM flex items-center justify-center gap-2 mt-5 md:self-start font-bold text-base md:text-lg leading-7 bg-primary text-white rounded-lg px-4 py-3 md:px-9 md:py-4"
             >
               Get Early Access
@@ -32,7 +32,7 @@ const LivestockPocketSection = () => {
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
-            </a>
+            </p>
           </div>
           <div className="md:hidden flex self-center items-center gap-1 p-1 rounded-lg">
             <span className="text-primary font-medium text-base">

@@ -1,11 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap');
 .App {
   text-align: center;
 }
-
+*{
+  font-family: "Manrope";
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

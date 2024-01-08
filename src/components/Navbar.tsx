@@ -7,7 +7,7 @@ const Navbar = () => {
   const { auth } = useFirebase()
   const isLoggedIn = auth?.currentUser?.email
   return (
-    <nav className="bg-[#FBFAFA] sticky top-0 z-30">
+    <nav className="bg-[#FBFAFA] sticky top-0 z-30 mx-0 md:px-64">
       <div className="sm:py-4 py-6 flex flex-row items-center md:items-end justify-between gap-16">
         <div className="hidden md:flex">
           <Link to="/">

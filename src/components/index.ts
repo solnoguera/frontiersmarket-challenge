@@ -1,6 +1,5 @@
 import Footer from './Footer'
 import Banner from './Banner'
-import Main from './Main'
 import BannerSection from './BannerSection'
 import Button from './Button'
 import SearchSection from './SearchSection'
@@ -13,7 +12,6 @@ import LivestockPocketSection from './LivestockPocketSection'
 export {
   Footer,
   Banner,
-  Main,
   Navbar,
   Button,
   BannerSection,
