@@ -23,49 +23,56 @@ cd frontiersmarket-challenge
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Run the application:
+
 ```bash
 npm run start
 ```
 
-_Note: In a real project, I would __not__ upload the .env file, but in this case, this way it is easier for you to run it locally._
+_Note: In a real project, I would **not** upload the .env file, but in this case, this way it is easier for you to run it locally._
 
 Visit http://localhost:3000 to see the application in action.
 
 ## Features
+
 - Homepage replica of frontiersmarket.com.
 - Overlay chat widget with ongoing conversations.
 - Firestore integration for real-time conversation storage.
 - Sign-in functionality with Google account through Firebase Authentication.
+
 ## Chat Widget Design
+
 The chat widget is designed to complement the overall look and feel of the frontiersmarket.com homepage. It provides a seamless and user-friendly experience, displaying ongoing conversations clearly.
 
 ## Repository Structure
+
 The project repository is organized as follows:
 
-- __src__: Contains the source code of the React application.
-- __components__: Reusable React components.
-- __error__: Error Boundary HOC.
-- __hooks__: Custom hooks useFirebase to store logic.
-- __icon__: Icon components.
-- __models__: Typescripts models for the app.
-- __screens__: React components for different screens (e.g., landing, login, register).
-- __utils__: util constants or functions.
-
+- **src**: Contains the source code of the React application.
+- **components**: Reusable React components.
+- **error**: Error Boundary HOC.
+- **hooks**: Custom hooks useFirebase to store logic.
+- **icon**: Icon components.
+- **models**: Typescripts models for the app.
+- **screens**: React components for different screens (e.g., landing, login, register).
+- **utils**: util constants or functions.
 
 ## Extra Activity (Optional)
-__Google Sign-In:__ Implemented Google Sign-In functionality through Firebase Authentication.
+
+**Google Sign-In:** Implemented Google Sign-In functionality through Firebase Authentication.
 Deadline
 The deadline for this project is Monday, EOD (End of Day).
 
 ## Created by:
-### Sol Noguera
----
 
+### Sol Noguera
+
+---
 
 Feel free to reach out if you have any questions or need further clarification.
 
