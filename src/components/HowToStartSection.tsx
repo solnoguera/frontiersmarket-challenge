@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const HowToStartSection = () => {
   return (
-    <section className="bg-how-to-start py-14 md:py-24">
+    <section className="bg-how-to-start py-14 md:py-24 bg-[#F4F6F8]">
       <div className="relative container flex flex-col items-center justify-center py-4">
         <p className="z-10 text-center text-base text-secondary font-semibold uppercase text-greenFM">
           How to start

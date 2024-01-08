@@ -148,7 +148,7 @@ const Login = () => {
                       aria-label="Forgot password"
                       onClick={() =>
                         toast.error(
-                          'Sorry! Please create a new account. Didnt have the time to implement everything',
+                          'Sorry! I Did not have enough time to implement the whole web. Please create a new account.',
                         )
                       }
                     >

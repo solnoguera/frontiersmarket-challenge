@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchIcon from '../icon/SearchIcon'
+import { toast } from 'react-toastify'
 
 const SearchSection = () => {
+  const [search, setSearch] = useState<string>("")
   return (
     <section className="container mx-20 max-sm:ml-0">
       <p className="text-base text-secondary font-semibold uppercase text-greenFM">
@@ -18,7 +20,8 @@ const SearchSection = () => {
             placeholder="What are you looking for?"
             aria-label="What are you looking for?"
             className="flex-grow border border-lightGrey rounded-l-lg text-sm text-[#475467] p-3"
-            value=""
+            value={search}
+            onChange={e=>setSearch(e.target.value)}
           />
           <select
             name="state-select"
@@ -26,9 +29,17 @@ const SearchSection = () => {
             className="max-md:hidden border border-lightGrey text-sm text-[#475467] p-3"
           >
             <option value="all">All States</option>
+            <option value="California">California</option>
+            <option value="Florida">Florida</option>
+            <option value="Ohio">Ohio</option>
+            <option value="Texas">Texas</option>
+            <option value="Virginia">Virginia</option>
           </select>
-          <button className="flex gap-3 items-center justify-center text-lg text-white bg-secondary p-3 rounded-r-lg leading-normal bg-greenFM">
-            Search
+          <button className="flex gap-3 items-center justify-center text-lg text-white bg-secondary p-3 rounded-r-lg leading-normal bg-greenFM" onClick={e=>{
+            e.preventDefault()
+            toast.error('Sorry! I Did not have enough time to implement the whole web',)
+            }}>
+             Search
             <SearchIcon />
           </button>
         </div>
