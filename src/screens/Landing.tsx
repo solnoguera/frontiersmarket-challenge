@@ -11,10 +11,10 @@ import {
   SellingSection,
 } from '../components'
 import useFirebase from '../hooks/useFirebase'
-import ChatWidget from '../components/ChatWidget'
+import ChatApp from '../components/ChatApp';
 
 const Landing = () => {
-  useFirebase()
+  useFirebase();
   return (
     <div className="flex flex-col">
       <div className="bg-[#FBFAFA] relative min-h-[100dvh] flex w-full flex-col">
@@ -39,7 +39,7 @@ const Landing = () => {
           </div>
         </div>
         {/* <Main /> */}
-        <ChatWidget />
+        <ChatApp />
       </div>
     </div>
   )

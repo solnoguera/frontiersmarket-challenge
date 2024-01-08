@@ -78,7 +78,7 @@ const Navbar = () => {
           </a>
           {isLoggedIn ? (
             <a
-              className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white hidden md:flex"
+              className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white"
               onClick={() => {
                 signOut(auth)
                 document.location.reload()

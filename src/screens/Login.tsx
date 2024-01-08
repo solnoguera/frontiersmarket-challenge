@@ -7,8 +7,9 @@ import EyeIcon from '../icon/EyeIcon'
 import { Link, useNavigate } from 'react-router-dom'
 import useFirebase from '../hooks/useFirebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { regexEmail, regexPassword } from '../utils'
+import { regexEmail, regexPassword, transformEmailIntoUsername } from '../utils/constants'
 import { toast } from 'react-toastify'
+import useRealTimeDB from '../hooks/useRealTimeDB'
 
 interface ErrorState {
   name?: string
@@ -24,7 +25,7 @@ const Login = () => {
     email: '',
     password: '',
   })
-  const { app, auth, loginWithGoogle } = useFirebase()
+  const { app, auth, loginWithGoogle, onLogin } = useFirebase()
   const navigate = useNavigate()
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
 
@@ -57,8 +58,12 @@ const Login = () => {
         const user = await signInWithEmailAndPassword(auth, email, password)
         navigate('/')
         console.log('userlogin', user)
+        const userName: string =  transformEmailIntoUsername(email);
         localStorage.setItem("uid", user.user.uid)
+        localStorage.setItem('username', userName)
         toast.success('Logged in successfuly!')
+        console.log({userName})
+        onLogin(userName);
       }
     } catch (error: any) {
       console.log({ error })

@@ -10,7 +10,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import useFirebase from '../hooks/useFirebase'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { regexEmail, regexPassword } from '../utils'
+import { regexEmail, regexPassword, transformEmailIntoUsername } from '../utils/constants'
 
 interface ErrorState {
   name?: string
@@ -19,7 +19,7 @@ interface ErrorState {
 }
 
 const Register = () => {
-  const [name, setName] = useState<string>()
+  const [username, setUsername] = useState<string>()
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
   const [errorMsg, setErrorMsg] = useState<ErrorState>({
@@ -28,7 +28,7 @@ const Register = () => {
     password: '',
   })
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
-  const { auth, loginWithGoogle } = useFirebase()
+  const { auth, loginWithGoogle, onRegister } = useFirebase()
   const navigate = useNavigate()
 
   const handleRegister = async (
@@ -36,7 +36,7 @@ const Register = () => {
   ) => {
     try {
       e.preventDefault()
-      if (auth && email && password && name) {
+      if (auth && email && password && username) {
         if (!regexEmail.test(email)) {
           setErrorMsg((prevState) => {
             return { ...prevState, email: 'Provide a valid email' }
@@ -57,12 +57,20 @@ const Register = () => {
             return { ...prevState, password: '' }
           })
         }
-        localStorage.setItem('name', name)
-        const user = await createUserWithEmailAndPassword(auth, email, password)
-        navigate('/')
-        console.log("user register", user)
-        localStorage.setItem("uid", user.user.uid)
-        toast.success(`Welcome ${localStorage.getItem('name')}!`)
+        const userName: string = transformEmailIntoUsername(email);
+        console.log({userName})
+        const usernameTaken = await onRegister(userName);
+        if(usernameTaken){
+          toast.error("Username already taken.");
+        }else{
+          localStorage.setItem('username', userName)
+          const user = await createUserWithEmailAndPassword(auth, email, password)
+          navigate('/')
+          console.log("user register", user)
+          localStorage.setItem("uid", user.user.uid)
+          toast.success(`Welcome ${localStorage.getItem('name')}!`)
+        }
+
       }
     } catch (error: any) {
       toast.error(`${error?.name}: ${error?.code}`)
@@ -105,13 +113,13 @@ const Register = () => {
                   <fieldset className="flex flex-col gap-3">
                     <div className="flex flex-col gap-1 relative">
                       <input
-                        name="name"
+                        name="username"
                         required
-                        placeholder="Name"
+                        placeholder="Username"
                         type="text"
                         className="gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                       />
                     </div>
                     <div></div>
