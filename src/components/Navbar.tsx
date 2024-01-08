@@ -5,8 +5,10 @@ import { signOut } from 'firebase/auth'
 import PhoneIcon from '../icon/PhoneIcon'
 
 const Navbar = () => {
-  const { auth } = useFirebase();
-  const isLoggedIn = Boolean(auth?.currentUser?.email && auth?.currentUser?.email !== "");
+  const { auth } = useFirebase()
+  const isLoggedIn = Boolean(
+    auth?.currentUser?.email && auth?.currentUser?.email !== '',
+  )
   return (
     <nav className="bg-[#FBFAFA] sticky top-0 z-30 mx-0 md:px-64">
       <div className="sm:py-4 py-6 flex flex-row items-center md:items-end justify-between gap-16">
@@ -48,7 +50,7 @@ const Navbar = () => {
             <p
               className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white"
               onClick={() => {
-                if(auth){
+                if (auth) {
                   signOut(auth)
                   document.location.reload()
                 }

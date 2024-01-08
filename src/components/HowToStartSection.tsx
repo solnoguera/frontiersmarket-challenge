@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom'
 import useFirebase from '../hooks/useFirebase'
 
 const HowToStartSection = () => {
-  const { auth } = useFirebase();
-  const isLoggedIn = Boolean(auth?.currentUser?.email && auth?.currentUser?.email !== "");
+  const { auth } = useFirebase()
+  const isLoggedIn = Boolean(
+    auth?.currentUser?.email && auth?.currentUser?.email !== '',
+  )
   return (
     <section className="bg-how-to-start py-14 md:py-24 bg-[#F4F6F8]">
       <div className="relative container flex flex-col items-center justify-center py-4">
