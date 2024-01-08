@@ -47,7 +47,7 @@ const ChatApp = () => {
 
       {/* Chat Widget */}
       <div
-        className="bg-white p-4 rounded-full shadow-2xl w-20 z-50"
+        className="bg-white p-4 rounded-full shadow-2xl w-20 z-50 hover:cursor-pointer"
         onClick={() => {
           if (currentView !== "") {
             setCurrentView('')

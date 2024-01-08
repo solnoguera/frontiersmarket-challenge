@@ -163,7 +163,6 @@ const useFirebase = () => {
       //create a new user if not registered
       if (user) {
         setUserData(user)
-        return false
       } else {
         const newUserObj = {
           username,
@@ -173,7 +172,6 @@ const useFirebase = () => {
         set(ref(database, `users/${username}`), newUserObj)
         setUserData(newUserObj)
       }
-      return true
     } catch (error) {
       console.error(error)
     }

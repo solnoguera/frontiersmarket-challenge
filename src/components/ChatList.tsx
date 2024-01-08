@@ -44,7 +44,7 @@ const ChatList = ({
             onChange={(e) => setUserToAdd(e.target.value)}
             value={userToAdd}
             className="bg-gray-200 p-2 w-10/12"
-            placeholder="Type user email"
+            placeholder="Add friend by email"
           />
           <button
             type='submit'
@@ -55,16 +55,18 @@ const ChatList = ({
           </button>
         </form>
       </div>
-      {friends.map((friend) => (
-        <div
-          className="h-12 border border-gray-100 flex items-center pl-6"
-          onClick={() => onClickUser(friend)}
-        >
-          <p className="text-base m-0">
-            {transformUsernameIntoEmail(friend?.username)}
-          </p>
+      <div className='overflow-y-scroll max-h-72 min-h-72'>
+          {friends.map((friend) => (
+            <div
+            className="h-12 border border-gray-100 flex items-center pl-6"
+            onClick={() => onClickUser(friend)}
+            >
+              <p className="text-base m-0">
+                {transformUsernameIntoEmail(friend?.username)}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
     </div>
   )
 }

@@ -31,7 +31,7 @@ const Register = () => {
     email: '',
     password: '',
   })
-  const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
+  const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true)
   const { auth, loginWithGoogle, onRegister } = useFirebase()
   const navigate = useNavigate()
 
@@ -62,22 +62,17 @@ const Register = () => {
           })
         }
         const userName: string = transformEmailIntoUsername(email)
-        console.log({ userName })
-        const usernameTaken = await onRegister(userName)
-        if (usernameTaken) {
-          toast.error('Username already taken.')
-        } else {
-          localStorage.setItem('username', userName)
-          const user = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password,
-          )
-          navigate('/')
-          console.log('user register', user)
-          localStorage.setItem('uid', user.user.uid)
-          toast.success(`Welcome ${localStorage.getItem('name')}!`)
-        }
+        await onRegister(userName)
+        localStorage.setItem('username', userName)
+        const user = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password,
+        )
+        navigate('/')
+        console.log('user register', user)
+        localStorage.setItem('uid', user.user.uid)
+        toast.success(`Welcome ${localStorage.getItem('name')}!`)
       }
     } catch (error: any) {
       toast.error(`${error?.name}: ${error?.code}`)
@@ -120,9 +115,9 @@ const Register = () => {
                   <fieldset className="flex flex-col gap-3">
                     <div className="flex flex-col gap-1 relative">
                       <input
-                        name="username"
+                        name="name"
                         required
-                        placeholder="Username"
+                        placeholder="Name"
                         type="text"
                         className="gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white"
                         value={username}
