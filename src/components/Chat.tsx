@@ -92,22 +92,25 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
             <div className='h-12'/>
           </div>
       </div>
-
+              
       <div className="bottom-0 absolute w-full">
-        <input
-          type="text"
-          onChange={(e) => setMessage(e.target.value)}
-          value={message}
-          className="bg-gray-200 p-2 w-10/12 rounded-bl-lg focus:outline-none"
-          placeholder="Send message"
-        />
-        <button
-          onClick={()=>handleSend(message)}
-          className="w-10 bg-blueFM h-10 w-2/12 text-white disabled:bg-gray-400 rounded-br-lg"
-          disabled={!message || message === ""}
-        >
-          Send
-        </button>
+        <form onSubmit={()=>handleSend(message)}>
+          <input
+            type="text"
+            onChange={(e) => setMessage(e.target.value)}
+            value={message}
+            className="bg-gray-200 p-2 w-10/12 rounded-bl-lg focus:outline-none"
+            placeholder="Send message"
+          />
+          <button
+            onClick={()=>handleSend(message)}
+            className="w-10 bg-blueFM h-10 w-2/12 text-white disabled:bg-gray-400 rounded-br-lg"
+            disabled={!message || message === ""}
+            type="submit"
+          >
+            Send
+          </button>
+        </form>
       </div>
     </div>
   )

@@ -35,19 +35,25 @@ const ChatList = ({
         <p className="text-xl m-0">Your Chats</p>
       </div>
       <div>
-        <input
-          type="text"
-          onChange={(e) => setUserToAdd(e.target.value)}
-          value={userToAdd}
-          className="bg-gray-200 p-2 w-10/12"
-          placeholder="Type user email"
-        />
-        <button
-          onClick={() => onAddFriend(userToAdd)}
-          className="w-10 bg-blueFM h-10 w-2/12 text-white"
-        >
-          Add
-        </button>
+        <form onSubmit={(e) => {
+            e.preventDefault();
+            onAddFriend(userToAdd);
+          }}>
+          <input
+            type="text"
+            onChange={(e) => setUserToAdd(e.target.value)}
+            value={userToAdd}
+            className="bg-gray-200 p-2 w-10/12"
+            placeholder="Type user email"
+          />
+          <button
+            type='submit'
+            onClick={() => onAddFriend(userToAdd)}
+            className="w-10 bg-blueFM h-10 w-2/12 text-white"
+          >
+            Add
+          </button>
+        </form>
       </div>
       {friends.map((friend) => (
         <div

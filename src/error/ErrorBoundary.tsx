@@ -1,7 +1,8 @@
 import React, { ReactNode, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
@@ -22,10 +23,11 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
   }, []);
 
   const reloadPage = () => {
-    window.location.reload();
+    window.location.pathname = "/"
+    setTimeout(()=>window.location.reload(), 1000)
   };
 
-  if (hasError) {
+  if (hasError || !children) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="text-center">
@@ -34,6 +36,7 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
             An unexpected error has ocurred. Please try to reload the page.
           </p>
           <button
+            type='submit'
             className="px-4 py-2 bg-blueFM text-white rounded"
             onClick={reloadPage}
           >
