@@ -7,6 +7,7 @@ import {
   Auth,
   GoogleAuthProvider,
   signInWithPopup,
+  FacebookAuthProvider 
 } from 'firebase/auth'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
@@ -29,15 +30,12 @@ const useFirebase = () => {
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig)
-    console.log('app', app)
     setApp(app)
     const analytics = getAnalytics(app)
-    console.log('analytics', analytics)
     // Initialize Firebase Authentication and get a reference to the service
     const auth = getAuth(app)
     setAuth(auth)
     auth.useDeviceLanguage()
-    console.log('auth', auth)
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -55,20 +53,46 @@ const useFirebase = () => {
 
   const loginWithGoogle = () => {
     if(app){
-      const provider = new GoogleAuthProvider()
-      provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
-      const auth = getAuth(app)
+      const provider = new GoogleAuthProvider();
+      provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+      const auth = getAuth(app);
+      auth.useDeviceLanguage();
       signInWithPopup(auth, provider)
         .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          console.log('loginWithGoogle');
+          console.log('credential', credential);
+          const token = credential?.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+          console.log('user', user);
+          toast.success(`Welcome ${user?.displayName ?? user?.email}!`);
+          localStorage.setItem("name", user?.displayName ?? "");
+          navigate("/");
+        })
+        .catch((error) => {
+          toast.error(`${error?.code}: ${error?.message}`)
+        })
+      }
+  }
+
+  const loginWithFacebook = () => {
+    if(app){
+      const provider = new FacebookAuthProvider();
+      const auth = getAuth(app);
+      auth.useDeviceLanguage();
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // Google Access Token to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result)
-          console.log('loginWithGoogle')
+          console.log('loginWithFacebook')
           console.log('credential', credential)
           const token = credential?.accessToken
           // The signed-in user info.
           const user = result.user
-          // IdP data available using getAdditionalUserInfo(result)
-          // ...
           console.log('user', user)
           toast.success(`Welcome ${user?.displayName ?? user?.email}!`);
           localStorage.setItem("name", user?.displayName ?? "");
@@ -97,7 +121,8 @@ const useFirebase = () => {
     app,
     auth,
     user: auth?.currentUser,
-    loginWithGoogle
+    loginWithGoogle,
+    loginWithFacebook
   }
 }
 

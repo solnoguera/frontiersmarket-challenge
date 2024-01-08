@@ -21,7 +21,7 @@ const Login = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [errorMsg, setErrorMsg] = useState<ErrorState>({ name: "", email: "", password: ""});
-  const { app, auth, loginWithGoogle } = useFirebase();
+  const { app, auth, loginWithGoogle, loginWithFacebook } = useFirebase();
   const navigate = useNavigate();
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
 
@@ -155,6 +155,7 @@ const Login = () => {
                       <button
                         type="button"
                         className="flex items-center justify-center w-full gap-3 p-3 lg:p-4 font-semibold lg:text-lg text-[#1D2939] rounded-lg bg-white border border-lightGrey"
+                        onClick={loginWithFacebook}
                       >
                         <FacebookIcon />
                         Continue with Facebook

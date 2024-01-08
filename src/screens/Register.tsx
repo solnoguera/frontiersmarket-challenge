@@ -24,7 +24,7 @@ const Register = () => {
     const [password, setPassword] = useState<string>();
     const [errorMsg, setErrorMsg] = useState<ErrorState>({ name: "", email: "", password: ""});
     const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
-    const { auth, loginWithGoogle } = useFirebase();
+    const { auth, loginWithGoogle, loginWithFacebook } = useFirebase();
     const navigate = useNavigate();
 
     const handleRegister = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -176,6 +176,7 @@ const Register = () => {
                       <button
                         type="button"
                         className="flex items-center justify-center w-full gap-3 p-3 lg:p-4 font-semibold lg:text-lg text-[#1D2939] rounded-lg bg-white border border-lightGrey"
+                        onClick={loginWithFacebook}
                       >
                         <FacebookIcon />
                         Continue with Facebook
