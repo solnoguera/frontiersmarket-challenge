@@ -58,8 +58,10 @@ const Register = () => {
           })
         }
         localStorage.setItem('name', name)
-        await createUserWithEmailAndPassword(auth, email, password)
+        const user = await createUserWithEmailAndPassword(auth, email, password)
         navigate('/')
+        console.log("user register", user)
+        localStorage.setItem("uid", user.user.uid)
         toast.success(`Welcome ${localStorage.getItem('name')}!`)
       }
     } catch (error: any) {
