@@ -6,6 +6,7 @@ import './App.css'
 import reportWebVitals from './reportWebVitals'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ErrorBoundary from './error/ErrorBoundary'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
@@ -22,7 +23,9 @@ root.render(
       pauseOnHover
       theme="light"
     />
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>,
 )
 

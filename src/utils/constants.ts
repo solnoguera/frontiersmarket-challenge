@@ -1,12 +1,12 @@
 export const firebaseConfig = {
-  apiKey: 'AIzaSyDkZVTFbvbFYV-CBjdLNlv6JoKqBYiHS8o',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
   authDomain: 'frontiersmarket-challenge.firebaseapp.com',
   projectId: 'frontiersmarket-challenge',
   storageBucket: 'frontiersmarket-challenge.appspot.com',
   messagingSenderId: '884925322336',
   appId: '1:884925322336:web:2673c4f678ed8c8efc5f05',
   measurementId: 'G-3W68RJ07PP',
-  databaseURL: 'https://frontiersmarket-challenge-default-rtdb.firebaseio.com',
 }
 
 export const regexEmail =
