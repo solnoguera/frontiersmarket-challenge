@@ -10,44 +10,57 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { regexEmail, regexPassword } from '../utils'
 import { toast } from 'react-toastify'
 
-interface ErrorState{
-  name?: string;
-  email?: string;
-  password?: string;
+interface ErrorState {
+  name?: string
+  email?: string
+  password?: string
 }
 
-
 const Login = () => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [errorMsg, setErrorMsg] = useState<ErrorState>({ name: "", email: "", password: ""});
-  const { app, auth, loginWithGoogle, loginWithFacebook } = useFirebase();
-  const navigate = useNavigate();
-  const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>()
+  const [password, setPassword] = useState<string>()
+  const [errorMsg, setErrorMsg] = useState<ErrorState>({
+    name: '',
+    email: '',
+    password: '',
+  })
+  const { app, auth, loginWithGoogle, loginWithFacebook } = useFirebase()
+  const navigate = useNavigate()
+  const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
 
-  const handleLogin = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleLogin = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     try {
-        e.preventDefault();
-        if(auth && email && password){
-          if (!regexEmail.test(email)) {
-            setErrorMsg((prevState)=>{ return {...prevState, email: "Provide a valid email"} });
-            return;
-          }else{
-            setErrorMsg((prevState)=>{ return {...prevState, email: ""} });
-          }
-          if (!regexPassword.test(password)) {
-            setErrorMsg((prevState)=>{ return {...prevState, password: "Provide a valid password"} });
-            return;
-          }else{
-            setErrorMsg((prevState)=>{ return {...prevState, password: ""} });
-          }
-          const user = await signInWithEmailAndPassword(auth, email, password);
-          navigate("/");
-          console.log("userlogin",user)
-          toast.success("Logged in successfuly!");
+      e.preventDefault()
+      if (auth && email && password) {
+        if (!regexEmail.test(email)) {
+          setErrorMsg((prevState) => {
+            return { ...prevState, email: 'Provide a valid email' }
+          })
+          return
+        } else {
+          setErrorMsg((prevState) => {
+            return { ...prevState, email: '' }
+          })
+        }
+        if (!regexPassword.test(password)) {
+          setErrorMsg((prevState) => {
+            return { ...prevState, password: 'Provide a valid password' }
+          })
+          return
+        } else {
+          setErrorMsg((prevState) => {
+            return { ...prevState, password: '' }
+          })
+        }
+        const user = await signInWithEmailAndPassword(auth, email, password)
+        navigate('/')
+        console.log('userlogin', user)
+        toast.success('Logged in successfuly!')
       }
     } catch (error: any) {
-      console.log({error})
+      console.log({ error })
       toast.error(`${error?.name}: ${error?.code}`)
     }
   }
@@ -94,10 +107,12 @@ const Login = () => {
                         data-cy="input-email"
                         className="gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white"
                         value={email}
-                        onChange={(e)=>setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
-                    {errorMsg?.email && <p className="text-redFM text-xs">{errorMsg?.email}</p>}
+                    {errorMsg?.email && (
+                      <p className="text-redFM text-xs">{errorMsg?.email}</p>
+                    )}
                     <div></div>
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-center relative items-center">
@@ -107,15 +122,17 @@ const Login = () => {
                           required
                           placeholder="Password"
                           data-cy="input-password"
-                          type={`${passwordVisibility ? "password" : "text"}`}
+                          type={`${passwordVisibility ? 'password' : 'text'}`}
                           value={password}
-                          onChange={(e)=>setPassword(e.target.value)}
+                          onChange={(e) => setPassword(e.target.value)}
                         />
                         <button
                           type="button"
                           className="absolute right-5"
                           aria-label="toggle password visibility"
-                          onClick={()=>setPasswordVisibility(!passwordVisibility)}
+                          onClick={() =>
+                            setPasswordVisibility(!passwordVisibility)
+                          }
                         >
                           <EyeIcon />
                         </button>
@@ -134,7 +151,7 @@ const Login = () => {
                       data-cy="btn-login"
                       type="submit"
                       className="flex gap-3 items-center justify-center font-bold text-lg text-white bg-secondary p-3 lg:p-4 rounded-lg leading-normal disabled:opacity-25 bg-greenFM"
-                      onClick={(e)=>handleLogin(e)}
+                      onClick={(e) => handleLogin(e)}
                     >
                       Log in
                     </button>

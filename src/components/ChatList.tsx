@@ -1,26 +1,24 @@
 import React from 'react'
 
 interface Chat {
-    title: string;
+  title: string
 }
 
 interface Props {
-    chats: Chat[]
+  chats: Chat[]
 }
 
-const ChatList = ({ chats } : Props) => {
+const ChatList = ({ chats }: Props) => {
   return (
-    <div className=''>
-        <div className='h-12 flex items-center font-bold pl-6 '>
-            <p className='text-xl m-0'>Your Chats</p>
-        </div> 
-        {
-            chats.map(chat=> (
-                <div className='h-12 border border-gray-100 flex items-center pl-6 '>
-                    <p className='text-base m-0'>{chat.title}</p>
-                </div>  
-            ))
-        }
+    <div className="">
+      <div className="h-12 flex items-center font-bold pl-6 ">
+        <p className="text-xl m-0">Your Chats</p>
+      </div>
+      {chats.map((chat) => (
+        <div className="h-12 border border-gray-100 flex items-center pl-6 ">
+          <p className="text-base m-0">{chat.title}</p>
+        </div>
+      ))}
     </div>
   )
 }

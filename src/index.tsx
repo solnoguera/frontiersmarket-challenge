@@ -5,7 +5,7 @@ import App from './App'
 import './App.css'
 import reportWebVitals from './reportWebVitals'
 import { ToastContainer } from 'react-toastify'
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
@@ -21,8 +21,8 @@ root.render(
       draggable
       pauseOnHover
       theme="light"
-      />
-      <App />
+    />
+    <App />
   </React.StrictMode>,
 )
 

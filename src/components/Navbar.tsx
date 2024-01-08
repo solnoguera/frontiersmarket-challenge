@@ -6,8 +6,8 @@ import { signOut } from 'firebase/auth'
 import { toast } from 'react-toastify'
 
 const Navbar = () => {
-  const { auth } = useFirebase();
-  const isLoggedIn = auth?.currentUser?.email;
+  const { auth } = useFirebase()
+  const isLoggedIn = auth?.currentUser?.email
   return (
     <nav className="bg-[#FBFAFA] sticky top-0 z-30">
       <div className="sm:py-4 py-6 flex flex-row items-center md:items-end justify-between gap-16">
@@ -76,30 +76,32 @@ const Navbar = () => {
             </svg>
             512-387-4314
           </a>
-            {
-              isLoggedIn ? 
-              <a className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white hidden md:flex" onClick={()=>{
-                signOut(auth);
-                document.location.reload();
-                }} >
-                Log Out
-              </a>
-              :
-              <div className='flex gap-3 items-center'>
-                <Link to="/login">
-                  <a className="font-semibold text-sm sm:text-base rounded-md py-2 px-3 text-primary border border-lightGrey" >
-                    Log in
-                  </a>
-                </Link>
-                <Link to="/register">
-                  <a className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white hidden md:flex" >
-                    Register
-                  </a>
-                </Link>
-              </div>
-            }
-            
-            {/* <Button title="Log In" />
+          {isLoggedIn ? (
+            <a
+              className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white hidden md:flex"
+              onClick={() => {
+                signOut(auth)
+                document.location.reload()
+              }}
+            >
+              Log Out
+            </a>
+          ) : (
+            <div className="flex gap-3 items-center">
+              <Link to="/login">
+                <a className="font-semibold text-sm sm:text-base rounded-md py-2 px-3 text-primary border border-lightGrey">
+                  Log in
+                </a>
+              </Link>
+              <Link to="/register">
+                <a className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white hidden md:flex">
+                  Register
+                </a>
+              </Link>
+            </div>
+          )}
+
+          {/* <Button title="Log In" />
             <Button title="Register" /> */}
         </div>
       </div>

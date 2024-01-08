@@ -8,58 +8,72 @@ import { Link } from 'react-router-dom'
 import CrossIcon from '../icon/CrossIcon'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import useFirebase from '../hooks/useFirebase'
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 import { regexEmail, regexPassword } from '../utils'
 
-interface ErrorState{
-  name?: string;
-  email?: string;
-  password?: string;
+interface ErrorState {
+  name?: string
+  email?: string
+  password?: string
 }
 
 const Register = () => {
-    const [name, setName] = useState<string>();
-    const [email, setEmail] = useState<string>();
-    const [password, setPassword] = useState<string>();
-    const [errorMsg, setErrorMsg] = useState<ErrorState>({ name: "", email: "", password: ""});
-    const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
-    const { auth, loginWithGoogle, loginWithFacebook } = useFirebase();
-    const navigate = useNavigate();
+  const [name, setName] = useState<string>()
+  const [email, setEmail] = useState<string>()
+  const [password, setPassword] = useState<string>()
+  const [errorMsg, setErrorMsg] = useState<ErrorState>({
+    name: '',
+    email: '',
+    password: '',
+  })
+  const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
+  const { auth, loginWithGoogle, loginWithFacebook } = useFirebase()
+  const navigate = useNavigate()
 
-    const handleRegister = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      try {
-        e.preventDefault();
-        if(auth && email && password && name){
-          if (!regexEmail.test(email)) {
-            setErrorMsg((prevState)=>{ return {...prevState, email: "Provide a valid email"} });
-            return;
-          }else{
-            setErrorMsg((prevState)=>{ return {...prevState, email: ""} });
-          }
-          if (!regexPassword.test(password)) {
-            setErrorMsg((prevState)=>{ return {...prevState, password: "Provide a valid password"} });
-            return;
-          }else{
-            setErrorMsg((prevState)=>{ return {...prevState, password: ""} });
-          }
-          localStorage.setItem("name", name);
-          await createUserWithEmailAndPassword(auth, email, password);
-          navigate("/");
-          toast.success(`Welcome ${localStorage.getItem("name")}!`);
+  const handleRegister = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    try {
+      e.preventDefault()
+      if (auth && email && password && name) {
+        if (!regexEmail.test(email)) {
+          setErrorMsg((prevState) => {
+            return { ...prevState, email: 'Provide a valid email' }
+          })
+          return
+        } else {
+          setErrorMsg((prevState) => {
+            return { ...prevState, email: '' }
+          })
+        }
+        if (!regexPassword.test(password)) {
+          setErrorMsg((prevState) => {
+            return { ...prevState, password: 'Provide a valid password' }
+          })
+          return
+        } else {
+          setErrorMsg((prevState) => {
+            return { ...prevState, password: '' }
+          })
+        }
+        localStorage.setItem('name', name)
+        await createUserWithEmailAndPassword(auth, email, password)
+        navigate('/')
+        toast.success(`Welcome ${localStorage.getItem('name')}!`)
       }
-      } catch (error: any) {
-          toast.error(`${error?.name}: ${error?.code}`)
-      }
+    } catch (error: any) {
+      toast.error(`${error?.name}: ${error?.code}`)
     }
+  }
 
-    return (
+  return (
     <main className="flex flex-col bg-[#FBFAFA] md:flex-row min-h-screen">
       <section className="flex flex-1 justify-center">
         <div className="container pt-4 flex flex-col lg:max-w-[400px] gap-6">
           <div className="flex flex-col justify-center basis-full gap-6">
             <Link to="/">
-              <a className="w-fit" >
+              <a className="w-fit">
                 <img
                   src="assets/logo.svg"
                   alt="logo 1"
@@ -77,7 +91,7 @@ const Register = () => {
                 <h2 className="flex items-center gap-1 font-medium text-base text-[#475467]">
                   Already a user?
                   <Link to="/login">
-                    <a className="flex items-center gap-1 font-semibold text-base text-[#1D2939]" >
+                    <a className="flex items-center gap-1 font-semibold text-base text-[#1D2939]">
                       Log in here
                       <ArrowIcon />
                     </a>
@@ -95,7 +109,7 @@ const Register = () => {
                         type="text"
                         className="gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white"
                         value={name}
-                        onChange={(e)=>setName(e.target.value)}
+                        onChange={(e) => setName(e.target.value)}
                       />
                     </div>
                     <div></div>
@@ -105,34 +119,46 @@ const Register = () => {
                         required
                         placeholder="Email"
                         type="email"
-                        className={`gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white ${errorMsg?.email ? "border-redFM" : ""}`}
+                        className={`gap-1 border rounded-lg text-sm text-darkerGrey p-3 lg:p-4 flex-grow border-lightGrey bg-white ${
+                          errorMsg?.email ? 'border-redFM' : ''
+                        }`}
                         value={email}
-                        onChange={(e)=>setEmail(e.target.value)}
-                        />
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </div>
-                    {errorMsg?.email && <p className="text-redFM text-xs">{errorMsg?.email}</p>}
+                    {errorMsg?.email && (
+                      <p className="text-redFM text-xs">{errorMsg?.email}</p>
+                    )}
                     <div></div>
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-center relative items-center">
                         <input
-                          className={`gap-1 border rounded-lg bg-white text-sm text-[#475467] p-3 lg:p-4 flex-grow border-lightGrey  ${errorMsg?.password ? "border-redFM" : ""}`}
+                          className={`gap-1 border rounded-lg bg-white text-sm text-[#475467] p-3 lg:p-4 flex-grow border-lightGrey  ${
+                            errorMsg?.password ? 'border-redFM' : ''
+                          }`}
                           name="password"
                           required
                           placeholder="Password"
-                          type={`${passwordVisibility ? "password" : "text"}`}
+                          type={`${passwordVisibility ? 'password' : 'text'}`}
                           value={password}
-                          onChange={(e)=>setPassword(e.target.value)}
+                          onChange={(e) => setPassword(e.target.value)}
                         />
                         <button
                           type="button"
                           className="absolute right-5"
                           aria-label="toggle password visibility"
-                          onClick={()=>setPasswordVisibility(!passwordVisibility)}
+                          onClick={() =>
+                            setPasswordVisibility(!passwordVisibility)
+                          }
                         >
                           <EyeIcon />
                         </button>
                       </div>
-                      {errorMsg?.password && <p className="text-redFM text-xs">{errorMsg?.password}</p>}
+                      {errorMsg?.password && (
+                        <p className="text-redFM text-xs">
+                          {errorMsg?.password}
+                        </p>
+                      )}
                     </div>
                   </fieldset>
                   <div className="px-4 pb-6 pt-2 text-xs">
@@ -155,7 +181,7 @@ const Register = () => {
                     <button
                       data-cy="btn-login"
                       className="flex gap-3 items-center justify-center font-bold text-lg text-white bg-secondary p-3 lg:p-4 rounded-lg leading-normal disabled:opacity-25 bg-greenFM"
-                      onClick={(e)=>handleRegister(e)}
+                      onClick={(e) => handleRegister(e)}
                     >
                       Register
                     </button>
