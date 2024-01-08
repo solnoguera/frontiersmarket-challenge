@@ -3,7 +3,7 @@ import SearchIcon from '../icon/SearchIcon'
 import { toast } from 'react-toastify'
 
 const SearchSection = () => {
-  const [search, setSearch] = useState<string>("")
+  const [search, setSearch] = useState<string>('')
   return (
     <section className="container mx-20 max-sm:ml-0">
       <p className="text-base text-secondary font-semibold uppercase text-greenFM">
@@ -21,7 +21,7 @@ const SearchSection = () => {
             aria-label="What are you looking for?"
             className="flex-grow border border-lightGrey rounded-l-lg text-sm text-[#475467] p-3"
             value={search}
-            onChange={e=>setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <select
             name="state-select"
@@ -35,11 +35,16 @@ const SearchSection = () => {
             <option value="Texas">Texas</option>
             <option value="Virginia">Virginia</option>
           </select>
-          <button className="flex gap-3 items-center justify-center text-lg text-white bg-secondary p-3 rounded-r-lg leading-normal bg-greenFM" onClick={e=>{
-            e.preventDefault()
-            toast.error('Sorry! I Did not have enough time to implement the whole web',)
-            }}>
-             Search
+          <button
+            className="flex gap-3 items-center justify-center text-lg text-white bg-secondary p-3 rounded-r-lg leading-normal bg-greenFM"
+            onClick={(e) => {
+              e.preventDefault()
+              toast.error(
+                'Sorry! I Did not have enough time to implement the whole web',
+              )
+            }}
+          >
+            Search
             <SearchIcon />
           </button>
         </div>

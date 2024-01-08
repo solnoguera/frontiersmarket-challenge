@@ -13,7 +13,7 @@ interface Props {
 const MyChat = ({ onBack, selectedUser }: Props) => {
   const [message, setMessage] = useState<string>()
   const [allMessages, setAllMessages] = useState<Messages[] | undefined>()
-  const messagesContainerRef : RefObject<HTMLDivElement> = useRef(null)
+  const messagesContainerRef: RefObject<HTMLDivElement> = useRef(null)
 
   useEffect(() => {
     //load old messages
