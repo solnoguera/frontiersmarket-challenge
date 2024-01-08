@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import VerifiedIcon from '../icon/VerifiedIcon'
-import FacebookIcon from '../icon/FacebookIcon'
 import GoogleIcon from '../icon/GoogleIcon'
 import EyeIcon from '../icon/EyeIcon'
 import ArrowIcon from '../icon/ArrowIcon'
@@ -32,7 +31,7 @@ const Register = () => {
     password: '',
   })
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true)
-  const { auth, loginWithGoogle, onRegister } = useFirebase()
+  const { auth, loginWithGoogle, addUserOnDDBB } = useFirebase()
   const navigate = useNavigate()
 
   const handleRegister = async (
@@ -62,15 +61,15 @@ const Register = () => {
           })
         }
         const userName: string = transformEmailIntoUsername(email)
-        await onRegister(userName)
-        localStorage.setItem('username', userName)
         const user = await createUserWithEmailAndPassword(
           auth,
           email,
           password,
         )
-        navigate('/')
+        await addUserOnDDBB(userName)
         localStorage.setItem('uid', user.user.uid)
+        localStorage.setItem('username', userName)
+        navigate('/')
         toast.success(`Welcome ${localStorage.getItem('name')}!`)
       }
     } catch (error: any) {

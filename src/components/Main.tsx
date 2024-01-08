@@ -12,7 +12,7 @@ const Main = () => {
         sellers. We make it easy to find the perfect livestock for your needs.
       </p>
       <div className="flex justify-center">
-        <a href="/search" className="btn btn-primary">
+        <a className="btn btn-primary">
           Search Livestock For Sale
         </a>
       </div>

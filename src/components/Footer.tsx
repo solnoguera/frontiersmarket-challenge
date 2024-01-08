@@ -73,8 +73,8 @@ const Footer = () => {
       </section>
       <section className="flex flex-col gap-4 font-medium text-beigeGrey border-t border-lightGrey py-8 md:flex-row md:justify-between">
         <div className="flex flex-row gap-4 text-sm">
-          <a href="/terms-of-service">Terms of Service</a>
-          <a href="/privacy-policy">Privacy Policy</a>
+          <a>Terms of Service</a>
+          <a>Privacy Policy</a>
         </div>
         <p className="text-xs md:text-sm">
           Copyright © Frontiers Market 2023. All Rights Reserved.

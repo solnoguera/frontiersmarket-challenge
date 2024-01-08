@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import SearchSection from './SearchSection'
 
 const SellingSection = () => {
   const [buying, setBuying] = useState(true)

@@ -1,5 +1,4 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 
 interface ErrorBoundaryProps {
   children?: ReactNode;

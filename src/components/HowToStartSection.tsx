@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const HowToStartSection = () => {
   return (
@@ -39,13 +40,14 @@ const HowToStartSection = () => {
             </div>
           ))}
         </div>
-        <a
-          className="z-10 text-white text-base text-center md:text-lg font-bold rounded-lg py-3 px-4 max-sm:w-full md:px-18 bg-secondary bg-greenFM mt-16"
-          aria-disabled="false"
-          href="/register"
-        >
-          Create Account
-        </a>
+        <Link to="/register">
+          <a
+            className="z-10 text-white text-base text-center md:text-lg font-bold rounded-lg py-3 px-4 max-sm:w-full md:px-18 bg-secondary bg-greenFM mt-16"
+            aria-disabled="false"
+          >
+            Create Account
+          </a>
+        </Link>
         <picture className="z-0 absolute">
           <source srcSet="assets/us_country.webp" type="image/webp" />
           <img

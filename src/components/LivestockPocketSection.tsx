@@ -16,7 +16,6 @@ const LivestockPocketSection = () => {
             </h2>
             <a
               className="bg-blueFM flex items-center justify-center gap-2 mt-5 md:self-start font-bold text-base md:text-lg leading-7 bg-primary text-white rounded-lg px-4 py-3 md:px-9 md:py-4"
-              href="/mobile-app"
             >
               Get Early Access
               <svg

@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import ChatIcon from '../icon/ChatIcon'
 import MyChat from './Chat'
 import ChatList from './ChatList'
-import useRealTimeDB from '../hooks/useRealTimeDB'
 import { User } from '../models'
+import useFirebase from '../hooks/useFirebase'
 
 const ChatApp = () => {
   const [currentView, setCurrentView] = useState<string>('')
   const [selectedUserChat, setSelectedUserChat] = useState<User>()
   const [userToAdd, setUserToAdd] = useState<string>('')
-  const { onAddFriend } = useRealTimeDB()
+  const { onAddFriend } = useFirebase()
 
   const onClickUser = (user: User) => {
     setCurrentView('chat')

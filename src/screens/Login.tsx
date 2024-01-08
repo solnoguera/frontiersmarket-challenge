@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import ArrowIcon from '../icon/ArrowIcon'
 import VerifiedIcon from '../icon/VerifiedIcon'
 import GoogleIcon from '../icon/GoogleIcon'
-import FacebookIcon from '../icon/FacebookIcon'
 import EyeIcon from '../icon/EyeIcon'
 import { Link, useNavigate } from 'react-router-dom'
 import useFirebase from '../hooks/useFirebase'
@@ -13,7 +12,6 @@ import {
   transformEmailIntoUsername,
 } from '../utils/constants'
 import { toast } from 'react-toastify'
-import useRealTimeDB from '../hooks/useRealTimeDB'
 
 interface ErrorState {
   name?: string
@@ -29,7 +27,7 @@ const Login = () => {
     email: '',
     password: '',
   })
-  const { app, auth, loginWithGoogle, onLogin } = useFirebase()
+  const { auth, loginWithGoogle } = useFirebase()
   const navigate = useNavigate()
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
 
@@ -65,7 +63,6 @@ const Login = () => {
         localStorage.setItem('uid', user.user.uid)
         localStorage.setItem('username', userName)
         toast.success('Logged in successfuly!')
-        onLogin(userName)
       }
     } catch (error: any) {
       toast.error(`${error?.name}: ${error?.code}`)

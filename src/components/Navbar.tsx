@@ -1,9 +1,7 @@
 import React from 'react'
-import Button from './Button'
 import { Link } from 'react-router-dom'
 import useFirebase from '../hooks/useFirebase'
 import { signOut } from 'firebase/auth'
-import { toast } from 'react-toastify'
 
 const Navbar = () => {
   const { auth } = useFirebase()
@@ -12,17 +10,19 @@ const Navbar = () => {
     <nav className="bg-[#FBFAFA] sticky top-0 z-30">
       <div className="sm:py-4 py-6 flex flex-row items-center md:items-end justify-between gap-16">
         <div className="hidden md:flex">
-          <a href="/">
-            <picture>
-              <img
-                src="assets/logo.svg"
-                alt="Logo"
-                width="100"
-                height="32"
-                className="hidden md:flex"
-              />
-            </picture>
-          </a>
+          <Link to="/">
+            <a>
+              <picture>
+                <img
+                  src="assets/logo.svg"
+                  alt="Logo"
+                  width="100"
+                  height="32"
+                  className="hidden md:flex"
+                />
+              </picture>
+            </a>
+          </Link>
         </div>
         <button className="rounded-full bg-white p-2 flex md:hidden items-center md:flex">
           <div className="rounded-full bg-white h-8 w-8 flex items-center justify-center mr-2">
@@ -52,7 +52,6 @@ const Navbar = () => {
           <div className="hidden md:flex">
             <a
               className="bg-white border-[#E4E7EC] border-[1px] rounded-md py-2 px-3 font-medium text-sm sm:text-base text-[#1D2939]"
-              href="/browse"
             >
               Browse livestock
             </a>

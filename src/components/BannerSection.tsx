@@ -19,7 +19,6 @@ const BannerSection = () => {
         </h1>
         <a
           className="bg-secondary text-white text-base md:text-lg font-bold rounded-lg py-4 px-11"
-          href="/browse"
         >
           Browse livestock
         </a>
