@@ -20,8 +20,8 @@ interface ErrorState {
 }
 
 const Login = () => {
-  const [email, setEmail] = useState<string>()
-  const [password, setPassword] = useState<string>()
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const [errorMsg, setErrorMsg] = useState<ErrorState>({
     name: '',
     email: '',

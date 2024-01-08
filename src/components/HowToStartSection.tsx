@@ -1,7 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import useFirebase from '../hooks/useFirebase'
 
 const HowToStartSection = () => {
+  const { auth } = useFirebase();
+  const isLoggedIn = Boolean(auth?.currentUser?.email && auth?.currentUser?.email !== "");
   return (
     <section className="bg-how-to-start py-14 md:py-24 bg-[#F4F6F8]">
       <div className="relative container flex flex-col items-center justify-center py-4">
@@ -41,12 +44,13 @@ const HowToStartSection = () => {
           ))}
         </div>
         <Link to="/register">
-          <p
-            className="z-10 text-white text-base text-center md:text-lg font-bold rounded-lg py-3 px-4 max-sm:w-full md:px-18 bg-secondary bg-greenFM mt-32"
+          <button
+            className="z-10 text-white text-base text-center md:text-lg font-bold rounded-lg py-3 px-4 max-sm:w-full md:px-18 bg-secondary bg-greenFM mt-32 disabled:opacity-50"
             aria-disabled="false"
+            disabled={isLoggedIn}
           >
             Create Account
-          </p>
+          </button>
         </Link>
         <picture className="z-0 absolute">
           <source srcSet="assets/us_country.webp" type="image/webp" />

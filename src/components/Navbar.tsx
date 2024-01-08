@@ -5,24 +5,20 @@ import { signOut } from 'firebase/auth'
 import PhoneIcon from '../icon/PhoneIcon'
 
 const Navbar = () => {
-  const { auth } = useFirebase()
-  const isLoggedIn = auth?.currentUser?.email
+  const { auth } = useFirebase();
+  const isLoggedIn = Boolean(auth?.currentUser?.email && auth?.currentUser?.email !== "");
   return (
     <nav className="bg-[#FBFAFA] sticky top-0 z-30 mx-0 md:px-64">
       <div className="sm:py-4 py-6 flex flex-row items-center md:items-end justify-between gap-16">
         <div className="hidden md:flex">
           <Link to="/">
-            <a>
-              <picture>
-                <img
-                  src="assets/logo.svg"
-                  alt="Logo"
-                  width="100"
-                  height="32"
-                  className="hidden md:flex"
-                />
-              </picture>
-            </a>
+            <img
+              src="assets/logo.svg"
+              alt="Logo"
+              width="100"
+              height="32"
+              className="hidden md:flex"
+            />
           </Link>
         </div>
         <button className="rounded-full bg-white p-2 flex md:hidden items-center md:flex">
@@ -36,9 +32,9 @@ const Navbar = () => {
         </button>
         <div className="flex flex-1 flex-row items-center justify-end gap-3">
           <div className="hidden md:flex">
-            <a className="bg-white border-[#E4E7EC] border-[1px] rounded-md py-2 px-3 font-medium text-sm sm:text-base text-[#1D2939]">
+            <p className="bg-white border-[#E4E7EC] border-[1px] rounded-md py-2 px-3 font-medium text-sm sm:text-base text-[#1D2939]">
               Browse livestock
-            </a>
+            </p>
           </div>
           <a
             className="hidden md:flex gap-2 text-primary text-base pr-3 items-center"
@@ -49,26 +45,28 @@ const Navbar = () => {
             512-387-4314
           </a>
           {isLoggedIn ? (
-            <a
+            <p
               className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white"
               onClick={() => {
-                signOut(auth)
-                document.location.reload()
+                if(auth){
+                  signOut(auth)
+                  document.location.reload()
+                }
               }}
             >
               Log Out
-            </a>
+            </p>
           ) : (
             <div className="flex gap-3 items-center">
               <Link to="/login">
-                <a className="font-semibold text-sm sm:text-base rounded-md py-2 px-3 text-primary border border-lightGrey">
+                <p className="font-semibold text-sm sm:text-base rounded-md py-2 px-3 text-primary border border-lightGrey">
                   Log in
-                </a>
+                </p>
               </Link>
               <Link to="/register">
-                <a className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white hidden md:flex">
+                <p className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white hidden md:flex">
                   Register
-                </a>
+                </p>
               </Link>
             </div>
           )}
