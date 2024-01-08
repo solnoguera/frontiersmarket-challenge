@@ -10,7 +10,6 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
 
   useEffect(() => {
     const handleError = (error: Event) => {
-      // Puedes registrar el error aquí o enviarlo a un servicio de seguimiento de errores
       console.error(error);
       setHasError(true);
     };

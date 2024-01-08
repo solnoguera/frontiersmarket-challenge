@@ -18,7 +18,6 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
     //load old messages
     const loadData = async () => {
       const myChatroom = await fetchMessages()
-      console.log('myChatroom', myChatroom)
       setAllMessages(myChatroom?.messages)
     }
     loadData()

@@ -61,16 +61,13 @@ const Login = () => {
         }
         const user = await signInWithEmailAndPassword(auth, email, password)
         navigate('/')
-        console.log('userlogin', user)
         const userName: string = transformEmailIntoUsername(email)
         localStorage.setItem('uid', user.user.uid)
         localStorage.setItem('username', userName)
         toast.success('Logged in successfuly!')
-        console.log({ userName })
         onLogin(userName)
       }
     } catch (error: any) {
-      console.log({ error })
       toast.error(`${error?.name}: ${error?.code}`)
     }
   }

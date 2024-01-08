@@ -70,7 +70,6 @@ const Register = () => {
           password,
         )
         navigate('/')
-        console.log('user register', user)
         localStorage.setItem('uid', user.user.uid)
         toast.success(`Welcome ${localStorage.getItem('name')}!`)
       }

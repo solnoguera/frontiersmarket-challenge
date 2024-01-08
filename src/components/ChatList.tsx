@@ -22,9 +22,7 @@ const ChatList = ({
 
   useEffect(() => {
     listenFriendsChange((snapshot) => {
-      console.log('listenFriendsChange')
       const data = snapshot.val()
-      console.log(data)
       setFriends(data?.friends ?? [])
     })
   }, [])

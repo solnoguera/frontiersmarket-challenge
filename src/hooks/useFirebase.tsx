@@ -26,9 +26,7 @@ const useFirebase = () => {
   const [app, setApp] = useState<FirebaseApp>()
   const [auth, setAuth] = useState<Auth | undefined>()
   const [userData, setUserData] = useState<User>({ username: '', avatar: '' })
-  const [fetchUser, setFetchUser] = useState<boolean>(false)
   const navigate = useNavigate()
-  console.log({ userData })
   useEffect(() => {
     // Initialize Firebase
     const app = initializeApp(firebaseConfig)
@@ -47,15 +45,6 @@ const useFirebase = () => {
     })
   }, [])
 
-  // useEffect(()=>{
-  //   const username = localStorage.getItem("username");
-  //   if(username){
-  //     findUser(username).then((user)=>{
-  //       setUserData(user);
-  //     })
-  //   }
-  // }, [fetchUser])
-
   const loginWithGoogle = () => {
     if (app) {
       const provider = new GoogleAuthProvider()
@@ -64,22 +53,16 @@ const useFirebase = () => {
       auth.useDeviceLanguage()
       signInWithPopup(auth, provider)
         .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result)
-          const token = credential?.accessToken
           // The signed-in user info.
           const user = result.user
-          console.log(user)
           const userName: string = transformEmailIntoUsername(
             user?.email ?? user.uid,
           )
-          console.log({ userName })
           onLogin(userName, user?.photoURL ?? undefined)
           toast.success(`Welcome ${user?.displayName ?? user?.email}!`)
           localStorage.setItem('username', userName)
           localStorage.setItem('uid', user.uid ?? '')
           navigate('/')
-          // setFetchUser(!fetchUser);
         })
         .catch((error) => {
           toast.error(`${error?.code}: ${error?.message}`)
@@ -97,7 +80,6 @@ const useFirebase = () => {
 
   const getUser = async (): Promise<User | undefined> => {
     const username = localStorage.getItem('username')
-    console.log(username)
     if (username) {
       const user = await findUser(username)
       return user
@@ -105,22 +87,6 @@ const useFirebase = () => {
       return undefined
     }
   }
-  // const getUser = () => {
-  //   if (auth && db) {
-  //     const userId = auth.currentUser?.uid
-  //     return onValue(
-  //       ref(db, '/users/' + userId),
-  //       (snapshot) => {
-  //         const username =
-  //           (snapshot.val() && snapshot.val().username) || 'Anonymous'
-  //         // ...
-  //       },
-  //       {
-  //         onlyOnce: true,
-  //       },
-  //     )
-  //   }
-  // }
 
   const listenFriendsChange = (callback: (snapshot: any) => void) => {
     const database = getDatabase()

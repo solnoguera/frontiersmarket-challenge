@@ -18,10 +18,8 @@ const useRealTimeDB = () => {
 
   useEffect(() => {
     if (app) {
-      console.log('app changed')
       // Initialize Realtime Database and get a reference to the service
       const database = getDatabase(app)
-      console.log({ database })
       setDb(database)
     }
   }, [app])
@@ -34,13 +32,10 @@ const useRealTimeDB = () => {
 
   const onAddFriend = async (email: string) => {
     try {
-      console.log('onAddFriend')
       //find user and add it to my friends and also add me to his friends
       const database = getDatabase()
       const userData = await getUser()
       const user = await findUser(transformEmailIntoUsername(email))
-      console.log('user', user)
-      console.log('userData', userData)
       if (!userData) return toast.error('Please log in.')
       if (!user) return toast.error('No user found!')
       if (user.username === userData?.username) {
