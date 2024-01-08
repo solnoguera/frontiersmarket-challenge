@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# FrontiersMarket Replica and Chat Widget
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a recreation of the [frontiersmarket.com](https://frontiersmarket.com/) homepage as a static website. It also includes a chat widget overlaying the website, displaying ongoing conversations with one or many real persons. Firestore Realtime Database is used to store the conversations, and the chat UI was developed by me. Additionally, a sign-in functionality is implemented, allowing users to sign in with their Google account through Firebase Authentication, or with their email and password.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+- **Create React App:** Bootstrapped the project using Create React App for quick setup and development.
+- **Firebase Auth:** Integrated Firebase Authentication for user authentication.
+- **Firebase Realtime Database:** Used Firestore to store and manage ongoing conversations in real-time.
+- **Tailwind CSS:** Employed Tailwind CSS for a utility-first approach to styling.
+- **React Toastify:** Implemented React Toastify for displaying user-friendly notifications.
+- **React Router DOM:** Used React Router DOM for handling navigation within the application.
+- **Typescript:** The entire codebase is written in TypeScript for static typing.
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone the repository:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+git clone https://github.com/solnoguera/frontiersmarket-challenge.git
 
-### `npm test`
+cd frontiersmarket-challenge
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Install dependencies:
+```bash
+npm install
+```
 
-### `npm run build`
+3. Run the application:
+```bash
+npm run start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+_Note: In a real project, I would __not__ upload the .env file, but in this case, this way it is easier for you to run it locally._
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Visit http://localhost:3000 to see the application in action.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Features
+- Homepage replica of frontiersmarket.com.
+- Overlay chat widget with ongoing conversations.
+- Firestore integration for real-time conversation storage.
+- Sign-in functionality with Google account through Firebase Authentication.
+## Chat Widget Design
+The chat widget is designed to complement the overall look and feel of the frontiersmarket.com homepage. It provides a seamless and user-friendly experience, displaying ongoing conversations clearly.
 
-### `npm run eject`
+## Repository Structure
+The project repository is organized as follows:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- __src__: Contains the source code of the React application.
+- __components__: Reusable React components.
+- __error__: Error Boundary HOC.
+- __hooks__: Custom hooks useFirebase to store logic.
+- __icon__: Icon components.
+- __models__: Typescripts models for the app.
+- __screens__: React components for different screens (e.g., landing, login, register).
+- __utils__: util constants or functions.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Extra Activity (Optional)
+__Google Sign-In:__ Implemented Google Sign-In functionality through Firebase Authentication.
+Deadline
+The deadline for this project is Monday, EOD (End of Day).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Created by:
+### Sol Noguera
+---
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Feel free to reach out if you have any questions or need further clarification.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Happy coding! 🚀
