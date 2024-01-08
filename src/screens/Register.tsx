@@ -82,8 +82,7 @@ const Register = () => {
       <section className="flex flex-1 justify-center">
         <div className="container pt-4 flex flex-col lg:max-w-[400px] gap-6">
           <div className="flex flex-col justify-center basis-full gap-6">
-            <Link to="/">
-              <a className="w-fit">
+            <Link to="/" className="w-fit">
                 <img
                   src="assets/logo.svg"
                   alt="logo 1"
@@ -91,7 +90,6 @@ const Register = () => {
                   height="56"
                   style={{ aspectRatio: '1.875 / 1' }}
                 />
-              </a>
             </Link>
             <section className="flex flex-col justify-center gap-10 max-md:py-4">
               <div>
@@ -100,11 +98,9 @@ const Register = () => {
                 </h1>
                 <h2 className="flex items-center gap-1 font-medium text-base text-[#475467]">
                   Already a user?
-                  <Link to="/login">
-                    <a className="flex items-center gap-1 font-semibold text-base text-[#1D2939]">
+                  <Link to="/login"  className="flex items-center gap-1 font-semibold text-base text-[#1D2939]">
                       Log in here
                       <ArrowIcon />
-                    </a>
                   </Link>
                 </h2>
               </div>
@@ -212,7 +208,7 @@ const Register = () => {
                     </div>
                     <p className="font-medium text-sm text-center text-[#202427] pt-4">
                       By selecting Register, I agree to
-                      <a> Terms of Service.</a>
+                      <p> Terms of Service.</p>
                     </p>
                   </div>
                 </form>
@@ -221,8 +217,8 @@ const Register = () => {
           </div>
           <section className="flex flex-col gap-4 font-medium text-beigeGrey border-t border-lightGrey py-8">
             <div className="flex flex-row gap-4 text-sm">
-              <a>Terms of Service</a>
-              <a>Privacy Policy</a>
+              <p>Terms of Service</p>
+              <p>Privacy Policy</p>
             </div>
             <p className="text-xs md:text-sm">
               Copyright © Frontiers Market 2023. All Rights Reserved.

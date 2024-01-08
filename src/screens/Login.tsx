@@ -74,7 +74,7 @@ const Login = () => {
         <div className="container pt-4 flex flex-col lg:max-w-[400px] gap-6">
           <div className="flex flex-col justify-center basis-full gap-6">
             <Link to="/">
-              <a className="w-fit">
+              <p className="w-fit">
                 <img
                   src="assets/logo.svg"
                   alt="logo 1"
@@ -82,7 +82,7 @@ const Login = () => {
                   height="56"
                   style={{ aspectRatio: '1.875 / 1' }}
                 />
-              </a>
+              </p>
             </Link>
             <section className="flex flex-col justify-center gap-10 max-md:py-4">
               <div>
@@ -92,10 +92,10 @@ const Login = () => {
                 <h3 className="flex items-center gap-1 font-medium text-base text-[#475467]">
                   Don't have an account?
                   <Link to="/register">
-                    <a className="flex items-center gap-1 font-semibold text-base text-[#1D2939]">
+                    <p className="flex items-center gap-1 font-semibold text-base text-[#1D2939]">
                       Register now
                       <ArrowIcon />
-                    </a>
+                    </p>
                   </Link>
                 </h3>
               </div>
@@ -142,13 +142,14 @@ const Login = () => {
                         </button>
                       </div>
                     </div>
-                    <a
+                    <p
                       data-cy="link-forgot"
                       className="lg:self-end font-semibold text-sm md:text-base text-[#1D2939]"
                       aria-label="Forgot password"
+                      onClick={()=>toast.error("Sorry! Please create a new account. Didnt have the time to implement everything")}
                     >
                       Forgot password?
-                    </a>
+                    </p>
                   </fieldset>
                   <div className="flex flex-col gap-3">
                     <button
@@ -181,8 +182,8 @@ const Login = () => {
           </div>
           <section className="flex flex-col gap-4 font-medium text-beigeGrey border-t border-lightGrey py-8">
             <div className="flex flex-row gap-4 text-sm">
-              <a>Terms of Service</a>
-              <a>Privacy Policy</a>
+              <p>Terms of Service</p>
+              <p>Privacy Policy</p>
             </div>
             <p className="text-xs md:text-sm">
               Copyright © Frontiers Market 2023. All Rights Reserved.
