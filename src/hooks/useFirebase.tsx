@@ -25,7 +25,7 @@ const useFirebase = () => {
   const [app, setApp] = useState<FirebaseApp>()
   const [auth, setAuth] = useState<Auth | undefined>()
   const navigate = useNavigate()
-  
+
   useEffect(() => {
     // Initialize Firebase
     const app = initializeApp(firebaseConfig)
@@ -170,8 +170,6 @@ const useFirebase = () => {
       console.error(error)
     }
   }
-
-
 
   return {
     auth,

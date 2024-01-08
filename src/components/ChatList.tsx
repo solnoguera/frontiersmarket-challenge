@@ -33,10 +33,12 @@ const ChatList = ({
         <p className="text-xl m-0">Your Chats</p>
       </div>
       <div>
-        <form onSubmit={(e) => {
-            e.preventDefault();
-            onAddFriend(userToAdd);
-          }}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            onAddFriend(userToAdd)
+          }}
+        >
           <input
             type="text"
             onChange={(e) => setUserToAdd(e.target.value)}
@@ -45,7 +47,7 @@ const ChatList = ({
             placeholder="Add friend by email"
           />
           <button
-            type='submit'
+            type="submit"
             onClick={() => onAddFriend(userToAdd)}
             className="w-10 bg-blueFM h-10 w-2/12 text-white"
           >
@@ -53,18 +55,18 @@ const ChatList = ({
           </button>
         </form>
       </div>
-      <div className='overflow-y-scroll max-h-72 min-h-72'>
-          {friends.map((friend) => (
-            <div
+      <div className="overflow-y-scroll max-h-72 min-h-72">
+        {friends.map((friend) => (
+          <div
             className="h-12 border border-gray-100 flex items-center pl-6"
             onClick={() => onClickUser(friend)}
-            >
-              <p className="text-base m-0">
-                {transformUsernameIntoEmail(friend?.username)}
-              </p>
-            </div>
-          ))}
-        </div>
+          >
+            <p className="text-base m-0">
+              {transformUsernameIntoEmail(friend?.username)}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

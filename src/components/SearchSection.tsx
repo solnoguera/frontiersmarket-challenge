@@ -27,9 +27,7 @@ const SearchSection = () => {
           >
             <option value="all">All States</option>
           </select>
-          <button
-            className="flex gap-3 items-center justify-center text-lg text-white bg-secondary p-3 rounded-r-lg leading-normal bg-greenFM"
-          >
+          <button className="flex gap-3 items-center justify-center text-lg text-white bg-secondary p-3 rounded-r-lg leading-normal bg-greenFM">
             Search
             <SearchIcon />
           </button>

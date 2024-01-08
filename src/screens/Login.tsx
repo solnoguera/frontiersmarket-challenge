@@ -146,7 +146,11 @@ const Login = () => {
                       data-cy="link-forgot"
                       className="lg:self-end font-semibold text-sm md:text-base text-[#1D2939]"
                       aria-label="Forgot password"
-                      onClick={()=>toast.error("Sorry! Please create a new account. Didnt have the time to implement everything")}
+                      onClick={() =>
+                        toast.error(
+                          'Sorry! Please create a new account. Didnt have the time to implement everything',
+                        )
+                      }
                     >
                       Forgot password?
                     </p>

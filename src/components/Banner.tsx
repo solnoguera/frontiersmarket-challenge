@@ -19,10 +19,7 @@ const Banner = () => {
             <AppleIcon />
             <img src="assets/android.svg" alt="android icon" />
           </div>
-          <img
-            src="assets/cross.svg"
-            onClick={() => setShow(false)}
-          />
+          <img src="assets/cross.svg" onClick={() => setShow(false)} />
         </div>
       )}
     </>

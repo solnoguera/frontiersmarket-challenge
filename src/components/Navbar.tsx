@@ -36,9 +36,7 @@ const Navbar = () => {
         </button>
         <div className="flex flex-1 flex-row items-center justify-end gap-3">
           <div className="hidden md:flex">
-            <a
-              className="bg-white border-[#E4E7EC] border-[1px] rounded-md py-2 px-3 font-medium text-sm sm:text-base text-[#1D2939]"
-            >
+            <a className="bg-white border-[#E4E7EC] border-[1px] rounded-md py-2 px-3 font-medium text-sm sm:text-base text-[#1D2939]">
               Browse livestock
             </a>
           </div>

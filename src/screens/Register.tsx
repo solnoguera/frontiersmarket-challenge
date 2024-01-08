@@ -61,11 +61,7 @@ const Register = () => {
           })
         }
         const userName: string = transformEmailIntoUsername(email)
-        const user = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password,
-        )
+        const user = await createUserWithEmailAndPassword(auth, email, password)
         await addUserOnDDBB(userName)
         localStorage.setItem('uid', user.user.uid)
         localStorage.setItem('username', userName)
@@ -83,13 +79,13 @@ const Register = () => {
         <div className="container pt-4 flex flex-col lg:max-w-[400px] gap-6">
           <div className="flex flex-col justify-center basis-full gap-6">
             <Link to="/" className="w-fit">
-                <img
-                  src="assets/logo.svg"
-                  alt="logo 1"
-                  width="105"
-                  height="56"
-                  style={{ aspectRatio: '1.875 / 1' }}
-                />
+              <img
+                src="assets/logo.svg"
+                alt="logo 1"
+                width="105"
+                height="56"
+                style={{ aspectRatio: '1.875 / 1' }}
+              />
             </Link>
             <section className="flex flex-col justify-center gap-10 max-md:py-4">
               <div>
@@ -98,9 +94,12 @@ const Register = () => {
                 </h1>
                 <h2 className="flex items-center gap-1 font-medium text-base text-[#475467]">
                   Already a user?
-                  <Link to="/login"  className="flex items-center gap-1 font-semibold text-base text-[#1D2939]">
-                      Log in here
-                      <ArrowIcon />
+                  <Link
+                    to="/login"
+                    className="flex items-center gap-1 font-semibold text-base text-[#1D2939]"
+                  >
+                    Log in here
+                    <ArrowIcon />
                   </Link>
                 </h2>
               </div>

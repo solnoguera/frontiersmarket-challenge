@@ -37,10 +37,7 @@ const ChatApp = () => {
             />
           )}
           {currentView === 'chat' && selectedUserChat && (
-            <MyChat
-              selectedUser={selectedUserChat}
-              onBack={onBack}
-            />
+            <MyChat selectedUser={selectedUserChat} onBack={onBack} />
           )}
         </div>
       )}
@@ -49,7 +46,7 @@ const ChatApp = () => {
       <div
         className="bg-white p-4 rounded-full shadow-2xl w-20 z-50 hover:cursor-pointer"
         onClick={() => {
-          if (currentView !== "") {
+          if (currentView !== '') {
             setCurrentView('')
           } else {
             setCurrentView('friends')

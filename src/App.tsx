@@ -18,13 +18,13 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
-  }
+  },
 ])
 
 const App = () => {
   return (
     <ErrorBoundary>
-      <RouterProvider router={router}  />
+      <RouterProvider router={router} />
     </ErrorBoundary>
   )
 }

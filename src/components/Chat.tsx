@@ -13,7 +13,7 @@ interface Props {
 const MyChat = ({ onBack, selectedUser }: Props) => {
   const [message, setMessage] = useState<string>()
   const [allMessages, setAllMessages] = useState<Messages[] | undefined>()
-  const messagesContainerRef = useRef(null);
+  const messagesContainerRef = useRef(null)
 
   useEffect(() => {
     //load old messages
@@ -40,11 +40,16 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
 
   const scrollToBottom = () => {
     //@ts-expect-error
-    if (messagesContainerRef?.current && messagesContainerRef?.current?.scrollTop &&  messagesContainerRef?.current?.scrollHeight) {
-    //@ts-expect-error
-      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    if (
+      messagesContainerRef?.current &&
+      messagesContainerRef?.current?.scrollTop &&
+      messagesContainerRef?.current?.scrollHeight
+    ) {
+      //@ts-expect-error
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight
     }
-  };
+  }
 
   const fetchMessages = useCallback(async (): Promise<Chatroom> => {
     const database = getDatabase()
@@ -56,7 +61,7 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
 
   const onSend = useCallback(
     async (message: string | undefined) => {
-      if(!message?.trim()) return;
+      if (!message?.trim()) return
       const database = getDatabase()
 
       //fetch fresh messages from server
@@ -67,7 +72,7 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
           ...lastMessages,
           {
             text: message?.trim(),
-            sender: localStorage.getItem("username"),
+            sender: localStorage.getItem('username'),
             createdAt: new Date(),
           },
         ],
@@ -77,8 +82,8 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
   )
 
   const handleSend = (message: string | undefined) => {
-    onSend(message);
-    setMessage("");
+    onSend(message)
+    setMessage('')
   }
 
   return (
@@ -91,18 +96,24 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
           {transformUsernameIntoEmail(selectedUser.username)}
         </p>
       </div>
-      <div className='container mx-auto bg-white rounded-lg shadow-md overflow-y-scroll max-h-80 min-h-80' ref={messagesContainerRef}>
-        <div className='flex flex-col'>
+      <div
+        className="container mx-auto bg-white rounded-lg shadow-md overflow-y-scroll max-h-80 min-h-80"
+        ref={messagesContainerRef}
+      >
+        <div className="flex flex-col">
           {allMessages &&
-            allMessages?.map(msg => 
-            <ChatMessage text={msg.text} userSentIt={msg.sender === localStorage.getItem('username')} />
-            )}
-            <div className='h-12'/>
-          </div>
+            allMessages?.map((msg) => (
+              <ChatMessage
+                text={msg.text}
+                userSentIt={msg.sender === localStorage.getItem('username')}
+              />
+            ))}
+          <div className="h-12" />
+        </div>
       </div>
-              
+
       <div className="bottom-0 absolute w-full">
-        <form onSubmit={()=>handleSend(message)}>
+        <form onSubmit={() => handleSend(message)}>
           <input
             type="text"
             onChange={(e) => setMessage(e.target.value)}
@@ -111,9 +122,9 @@ const MyChat = ({ onBack, selectedUser }: Props) => {
             placeholder="Send message"
           />
           <button
-            onClick={()=>handleSend(message)}
+            onClick={() => handleSend(message)}
             className="w-10 bg-blueFM h-10 w-2/12 text-white disabled:bg-gray-400 rounded-br-lg"
-            disabled={!message || message === ""}
+            disabled={!message || message === ''}
             type="submit"
           >
             Send
