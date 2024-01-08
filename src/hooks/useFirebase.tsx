@@ -26,6 +26,7 @@ const useFirebase = () => {
       messagingSenderId: '884925322336',
       appId: '1:884925322336:web:2673c4f678ed8c8efc5f05',
       measurementId: 'G-3W68RJ07PP',
+      databaseURL: 'https://frontiersmarket-challenge-default-rtdb.firebaseio.com'
     }
 
     // Initialize Firebase

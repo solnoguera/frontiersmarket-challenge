@@ -11,6 +11,7 @@ import {
   SellingSection,
 } from '../components'
 import useFirebase from '../hooks/useFirebase'
+import ChatWidget from '../components/ChatWidget'
 
 const Landing = () => {
   useFirebase()
@@ -38,6 +39,7 @@ const Landing = () => {
           </div>
         </div>
         {/* <Main /> */}
+        <ChatWidget />
       </div>
     </div>
   )
