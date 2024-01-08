@@ -16,11 +16,19 @@ const useRealTimeDB = () => {
   const [db, setDb] = useState<Database | undefined>()
   const { app, getUser } = useFirebase()
 
+  useEffect(() => {
+    if (app) {
+      console.log('app changed')
+      // Initialize Realtime Database and get a reference to the service
+      const database = getDatabase(app)
+      console.log({ database })
+      setDb(database)
+    }
+  }, [app])
+
   const findUser = async (username: string) => {
     const database = getDatabase()
-
     const mySnapshot = await get(ref(database, `users/${username}`))
-
     return mySnapshot.val()
   }
 
@@ -85,50 +93,6 @@ const useRealTimeDB = () => {
       console.error(error)
     }
   }
-
-  // function sendMessage(user, message) {
-  //     if(db){
-  //         set(ref(db, 'messages/' + user), {
-  //             user,
-  //             message,
-  //             timestamp: Date.now(),
-  //         });
-  //     }
-  // }
-
-  // function sendMessage(user, message) {
-  //     if(db){
-  //         set(ref(db, 'messages/' + user), {
-  //             user,
-  //             message,
-  //             timestamp: Date.now(),
-  //         });
-  //     }
-  // }
-
-  // const receiveMessages = () => {
-  //     const messages = ref(db, 'messages/' + postId + '/starCount');
-  //     onValue(messages, (snapshot) => {
-  //         const data = snapshot.val();
-  //         updateStarCount(postElement, data);
-  //     });
-  // }
-  //   function recibirMensajes(callback) {
-  //     database.ref('messages').on('child_added', function(snapshot) {
-  //       var mensaje = snapshot.val();
-  //       callback(mensaje);
-  //     });
-  //   }
-
-  useEffect(() => {
-    if (app) {
-      console.log('app changed')
-      // Initialize Realtime Database and get a reference to the service
-      const database = getDatabase(app)
-      console.log({ database })
-      setDb(database)
-    }
-  }, [app])
 
   return { db, onAddFriend }
 }

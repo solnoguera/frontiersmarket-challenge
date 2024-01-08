@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import ChatIcon from './ChatIcon'
+import ChatIcon from '../icon/ChatIcon'
 import MyChat from './Chat'
 import ChatList from './ChatList'
 import useRealTimeDB from '../hooks/useRealTimeDB'
-import useFirebase from '../hooks/useFirebase'
 import { User } from '../models'
 
 const ChatApp = () => {
@@ -11,7 +10,6 @@ const ChatApp = () => {
   const [selectedUserChat, setSelectedUserChat] = useState<User>()
   const [userToAdd, setUserToAdd] = useState<string>('')
   const { onAddFriend } = useRealTimeDB()
-  const { userData } = useFirebase()
 
   const onClickUser = (user: User) => {
     setCurrentView('chat')
@@ -40,7 +38,6 @@ const ChatApp = () => {
           )}
           {currentView === 'chat' && selectedUserChat && (
             <MyChat
-              userData={userData}
               selectedUser={selectedUserChat}
               onBack={onBack}
             />
@@ -52,7 +49,7 @@ const ChatApp = () => {
       <div
         className="bg-white p-4 rounded-full shadow-2xl w-20 z-50"
         onClick={() => {
-          if (currentView === 'friends') {
+          if (currentView !== "") {
             setCurrentView('')
           } else {
             setCurrentView('friends')
