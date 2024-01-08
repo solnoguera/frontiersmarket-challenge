@@ -49,7 +49,8 @@ const ChatList = ({
           <button
             type="submit"
             onClick={() => onAddFriend(userToAdd)}
-            className="w-10 bg-blueFM h-10 w-2/12 text-white"
+            className="w-10 bg-blueFM h-10 w-2/12 text-white disabled:bg-gray-400"
+            disabled={!userToAdd || userToAdd === ''}
           >
             Add
           </button>
