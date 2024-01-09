@@ -4,12 +4,13 @@ import MyChat from './Chat'
 import ChatList from './ChatList'
 import { User } from '../models'
 import useFirebase from '../hooks/useFirebase'
+import { toast } from 'react-toastify'
 
 const ChatApp = () => {
   const [currentView, setCurrentView] = useState<string>('')
   const [selectedUserChat, setSelectedUserChat] = useState<User>()
   const [userToAdd, setUserToAdd] = useState<string>('')
-  const { onAddFriend } = useFirebase()
+  const { onAddFriend, isLoggedIn } = useFirebase()
 
   const onClickUser = (user: User) => {
     setCurrentView('chat')
@@ -46,6 +47,7 @@ const ChatApp = () => {
       <div
         className="bg-white p-4 rounded-full shadow-2xl w-20 z-50 hover:cursor-pointer"
         onClick={() => {
+          if(!isLoggedIn) return toast.error("You need to sign in to chat with other registered users!")
           if (currentView !== '') {
             setCurrentView('')
           } else {

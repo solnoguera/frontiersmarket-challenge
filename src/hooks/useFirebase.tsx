@@ -178,6 +178,9 @@ const useFirebase = () => {
     loginWithGoogle,
     onAddFriend,
     listenFriendsChange,
+    isLoggedIn:  Boolean(
+      auth?.currentUser?.email && auth?.currentUser?.email !== '',
+    )
   }
 }
 
