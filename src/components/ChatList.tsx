@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { MouseEvent, MouseEventHandler, useEffect, useState } from 'react'
 import { User } from '../models'
-import { transformUsernameIntoEmail } from '../utils/constants'
+import { regexEmail, transformUsernameIntoEmail } from '../utils/constants'
 import useFirebase from '../hooks/useFirebase'
 import { toast } from 'react-toastify'
 
@@ -27,6 +27,14 @@ const ChatList = ({
     })
   }, [])
 
+  const handleAddFriend = () => {
+    if (!regexEmail.test(userToAdd)) {
+      toast.error("Please, enter a valid email.")
+    } else {
+      onAddFriend(userToAdd)
+    }
+  }
+
   return (
     <div className="">
       <div className="h-12 flex items-center font-bold pl-6">
@@ -48,7 +56,7 @@ const ChatList = ({
           />
           <button
             type="submit"
-            onClick={() => onAddFriend(userToAdd)}
+            onClick={handleAddFriend}
             className="w-10 bg-blueFM h-10 w-2/12 text-white disabled:bg-gray-400"
             disabled={!userToAdd || userToAdd === ''}
           >
