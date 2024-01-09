@@ -48,7 +48,7 @@ const Navbar = () => {
           </a>
           {isLoggedIn ? (
             <p
-              className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white"
+              className="font-bold text-sm sm:text-base rounded-md py-2 px-3 bg-blueFM text-white hover:cursor-pointer"
               onClick={() => {
                 if (auth) {
                   signOut(auth)
