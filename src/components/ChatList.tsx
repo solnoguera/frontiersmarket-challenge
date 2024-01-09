@@ -40,7 +40,7 @@ const ChatList = ({
           }}
         >
           <input
-            type="text"
+            type="email"
             onChange={(e) => setUserToAdd(e.target.value)}
             value={userToAdd}
             className="bg-gray-200 p-2 w-10/12"

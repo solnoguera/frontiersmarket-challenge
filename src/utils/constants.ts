@@ -14,6 +14,20 @@ export const regexEmail =
 
 export const regexPassword = /^(?=.*[0-9!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/
 
+/**
+ * Reason I did this: 
+ * 
+ * I wanted to save my user data on firestore, fetching by email, because it was better to share fetching between login and register 
+ * (this is because register has a username input but login don't, so email was better.) 
+ * 
+ * The problem was that there are some symbols firebase doesn't receive, which are those that are replaced with <number>.
+ * 
+ * Another reason to do this: It is more secure, as users coudn't manipulate the local storage with another email.
+ * Well, actually, they could, but it would't work .
+ * 
+ * Of course if it was a real aplication I would have implemented a store manager, probably redux.
+ */
+
 export const transformEmailIntoUsername = (email: string): string => {
   let username = email.replaceAll('.', '<1>;')
   username = username.replaceAll('#', '<2>;')
